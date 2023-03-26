@@ -13,7 +13,7 @@ public class Vector extends Point{
     public Vector(double d1,double d2,double d3){
         super(d1,d2,d3);
         if(this.xyz.equals(Double3.ZERO))
-            throw new IllegalArgumentException("vector is zero");
+            throw new IllegalArgumentException("vector can't be zero");
     }
 
     /** Constructor to initialize Vector based object with the same Vector values
@@ -22,7 +22,7 @@ public class Vector extends Point{
     Vector(Double3 xyz){
         super(xyz);
         if(this.xyz.equals(Double3.ZERO))
-            throw new IllegalArgumentException("vector is zero");
+            throw new IllegalArgumentException("vector can't be zero");
 
     }
 

@@ -7,8 +7,6 @@ public class Sphere extends RadialGeometry{
     /** A point that represents the center of the sphere*/
     private final  Point center;
 
-    /** The radius of the sphere*/
-    private final double radius;
 
     /** Constructor to initialize Sphere based object with the same Sphere values
      * @param radius the radius of the sphere
@@ -17,7 +15,6 @@ public class Sphere extends RadialGeometry{
     public Sphere(double radius, Point center) {
         super(radius);
         this.center = center;
-        this.radius = radius;
     }
 
     /** getting the center of the sphere
@@ -25,11 +22,6 @@ public class Sphere extends RadialGeometry{
      */
     public Point getCenter() {
         return center;
-    }
-
-    @Override
-    public double getRadius() {
-        return radius;
     }
 
     public Vector getNormal(Point p1){return null;}
