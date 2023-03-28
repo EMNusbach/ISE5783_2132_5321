@@ -25,6 +25,7 @@ public class Tube extends RadialGeometry {
         this.axisRay = axisRay;
     }
 
+    @Override
     public Vector getNormal(Point p){
         return null;
     }
