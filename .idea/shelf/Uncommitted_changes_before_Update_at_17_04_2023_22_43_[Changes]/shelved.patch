@@ -1,0 +1,173 @@
+Index: src/Main.java
+===================================================================
+diff --git a/src/Main.java b/src/Main.java
+deleted file mode 100644
+--- a/src/Main.java	(revision be083405f81132c05b9cf8644035c44b1c3cde83)
++++ /dev/null	(revision be083405f81132c05b9cf8644035c44b1c3cde83)
+@@ -1,5 +0,0 @@
+-public class Main {
+-    public static void main(String[] args) {
+-        System.out.println("Hello world!");
+-    }
+-}
+\ No newline at end of file
+Index: .idea/libraries/junit_jupiter.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/junit_jupiter.xml b/.idea/libraries/junit_jupiter.xml
+new file mode 100644
+--- /dev/null	(date 1681740003149)
++++ b/.idea/libraries/junit_jupiter.xml	(date 1681740003149)
+@@ -0,0 +1,17 @@
++<component name="libraryTable">
++  <library name="junit.jupiter" type="repository">
++    <properties maven-id="org.junit.jupiter:junit-jupiter:5.5.2" />
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter/5.5.2/junit-jupiter-5.5.2.jar!/" />
++      <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-api/5.5.2/junit-jupiter-api-5.5.2.jar!/" />
++      <root url="jar://$MAVEN_REPOSITORY$/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar!/" />
++      <root url="jar://$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar!/" />
++      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.5.2/junit-platform-commons-1.5.2.jar!/" />
++      <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-params/5.5.2/junit-jupiter-params-5.5.2.jar!/" />
++      <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-engine/5.5.2/junit-jupiter-engine-5.5.2.jar!/" />
++      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-engine/1.5.2/junit-platform-engine-1.5.2.jar!/" />
++    </CLASSES>
++    <JAVADOC />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+Index: ISE5783_2132_5321.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src\" isTestSource=\"false\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ISE5783_2132_5321.iml b/ISE5783_2132_5321.iml
+--- a/ISE5783_2132_5321.iml	(revision be083405f81132c05b9cf8644035c44b1c3cde83)
++++ b/ISE5783_2132_5321.iml	(date 1681740921260)
+@@ -3,9 +3,12 @@
+   <component name="NewModuleRootManager" inherit-compiler-output="true">
+     <exclude-output />
+     <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$/.idea/unittests" isTestSource="true" />
+       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
++      <sourceFolder url="file://$MODULE_DIR$/unittests" isTestSource="true" />
+     </content>
+     <orderEntry type="inheritedJdk" />
+     <orderEntry type="sourceFolder" forTests="false" />
++    <orderEntry type="library" name="junit.jupiter" level="project" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_28_03_2023_13_25_[Changes]/shelved.patch
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_28_03_2023_13_25_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_28_03_2023_13_25_[Changes]/shelved.patch
+new file mode 100644
+--- /dev/null	(date 1679999637939)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_28_03_2023_13_25_[Changes]/shelved.patch	(date 1679999637939)
+@@ -0,0 +1,39 @@
++Index: .idea/workspace.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"eee3868d-2277-4911-b9dc-11043c08b6a7\" name=\"Changes\" comment=\"1st stage\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/geometries/Sphere.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/geometries/Sphere.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/primitives/Vector.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/primitives/Vector.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"PUSH_TAGS\">\r\n      <GitPushTagMode>\r\n        <option name=\"argument\" value=\"--tags\" />\r\n        <option name=\"title\" value=\"All\" />\r\n      </GitPushTagMode>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2NLQkCG42V8CfG3NfbOFdnWTlxw\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"eee3868d-2277-4911-b9dc-11043c08b6a7\" name=\"Changes\" comment=\"\" />\r\n      <created>1679441029306</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1679441029306</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E-00001\" summary=\"1st stage\">\r\n      <created>1679443688382</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\u200E\" />\r\n      <updated>1679443688382</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"1st stage\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"1st stage\" />\r\n  </component>\r\n</project>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/.idea/workspace.xml b/.idea/workspace.xml
++--- a/.idea/workspace.xml	
+++++ b/.idea/workspace.xml	
++@@ -5,9 +5,7 @@
++   </component>
++   <component name="ChangeListManager">
++     <list default="true" id="eee3868d-2277-4911-b9dc-11043c08b6a7" name="Changes" comment="1st stage">
++-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++-      <change beforePath="$PROJECT_DIR$/src/geometries/Sphere.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Sphere.java" afterDir="false" />
++-      <change beforePath="$PROJECT_DIR$/src/primitives/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/primitives/Vector.java" afterDir="false" />
+++      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
++     </list>
++     <option name="SHOW_DIALOG" value="false" />
++     <option name="HIGHLIGHT_CONFLICTS" value="true" />
++@@ -40,12 +38,12 @@
++     <option name="hideEmptyMiddlePackages" value="true" />
++     <option name="showLibraryContents" value="true" />
++   </component>
++-  <component name="PropertiesComponent"><![CDATA[{
++-  "keyToString": {
++-    "RunOnceActivity.OpenProjectViewOnStart": "true",
++-    "RunOnceActivity.ShowReadmeOnStart": "true"
+++  <component name="PropertiesComponent">{
+++  &quot;keyToString&quot;: {
+++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
++   }
++-}]]></component>
+++}</component>
++   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
++   <component name="TaskManager">
++     <task active="true" id="Default" summary="Default task">
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"eee3868d-2277-4911-b9dc-11043c08b6a7\" name=\"Changes\" comment=\"1st stage edit tag\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"PUSH_TAGS\">\r\n      <GitPushTagMode>\r\n        <option name=\"argument\" value=\"--tags\" />\r\n        <option name=\"title\" value=\"All\" />\r\n      </GitPushTagMode>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2NLQkCG42V8CfG3NfbOFdnWTlxw\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"eee3868d-2277-4911-b9dc-11043c08b6a7\" name=\"Changes\" comment=\"\" />\r\n      <created>1679441029306</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1679441029306</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E-00001\" summary=\"1st stage\">\r\n      <created>1679443688382</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\u200E\" />\r\n      <updated>1679443688382</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E-00002\" summary=\"1st stage edits\">\r\n      <created>1679817312104</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\u200E\" />\r\n      <updated>1679817312104</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E-00003\" summary=\"1st stage edit tag\">\r\n      <created>1679998799949</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\u200E\" />\r\n      <updated>1679998799949</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"4\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"1st stage\" />\r\n    <MESSAGE value=\"1st stage edits\" />\r\n    <MESSAGE value=\"1st stage edit tag\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"1st stage edit tag\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision be083405f81132c05b9cf8644035c44b1c3cde83)
++++ b/.idea/workspace.xml	(date 1679999741231)
+@@ -4,9 +4,13 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
++<<<<<<< HEAD
+     <list default="true" id="eee3868d-2277-4911-b9dc-11043c08b6a7" name="Changes" comment="1st stage edit tag">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+     </list>
++=======
++    <list default="true" id="eee3868d-2277-4911-b9dc-11043c08b6a7" name="Changes" comment="1st stage" />
++>>>>>>> origin/master
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -38,12 +42,12 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_28_03_2023_13_25__Changes_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_28_03_2023_13_25__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_28_03_2023_13_25__Changes_.xml
+new file mode 100644
+--- /dev/null	(date 1681737170549)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_28_03_2023_13_25__Changes_.xml	(date 1681737170549)
+@@ -0,0 +1,4 @@
++<changelist name="Uncommitted_changes_before_Update_at_28_03_2023_13_25_[Changes]" date="1679999155553" recycled="false" toDelete="true">
++  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_03_2023_13_25_[Changes]/shelved.patch" />
++  <option name="DESCRIPTION" value="Uncommitted changes before Update at 28/03/2023 13:25 [Changes]" />
++</changelist>
+\ No newline at end of file
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_28_03_2023_13_25_[Changes]1/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_28_03_2023_13_25_[Changes]1/shelved.patch
+new file mode 100644
