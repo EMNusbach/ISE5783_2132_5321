@@ -37,7 +37,7 @@ public class Cylinder extends Tube {
 
     @Override
     /**
-     * @author:Maayan
+     * @author: Maayan
      Returns the normal Vector of a point on the Cylinder surface.
      @param point the point to find the normal Vector for
      @return the normal Vector of the point on the Cylinder surface

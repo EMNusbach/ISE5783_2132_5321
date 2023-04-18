@@ -2,9 +2,9 @@ package geometries;
 import primitives.Point;
 import primitives.Vector;
 
-/** sphere class is a polygon represented by a point and a radius*/
+/** sphere class is a geometric shape represented by a point and a radius*/
 public class Sphere extends RadialGeometry{
-    /** A point that represents the center of the sphere*/
+    /** A point that represents the center of the sphere */
     private final  Point center;
 
 
@@ -25,6 +25,8 @@ public class Sphere extends RadialGeometry{
     }
 
     @Override
-    public Vector getNormal(Point p1){return p1.subtract(center).normalize();}
+    public Vector getNormal(Point p1){
+        return p1.subtract(center).normalize();
+    }
 }
 

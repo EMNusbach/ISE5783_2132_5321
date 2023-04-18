@@ -10,10 +10,8 @@ public class Vector extends Point{
      * @param d2 second coordinate value
      * @param d3 third coordinate value
      */
-    public Vector(double d1,double d2,double d3){
-        super(d1,d2,d3);
-        if(this.xyz.equals(Double3.ZERO))
-            throw new IllegalArgumentException("vector can't be zero");
+    public Vector(double x,double y,double z){
+        this (new Double3(x,y,z));
     }
 
     /** Constructor to initialize Vector based object with the same Vector values

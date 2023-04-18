@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Ray {
     /** Starting point of the ray */
     private final Point p0;
-    /** Direction of the ary*/
+    /** Direction of the ray*/
     private final Vector dir;
 
     /** getting the point

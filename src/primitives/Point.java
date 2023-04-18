@@ -14,7 +14,7 @@ public class Point {
      * @param d3 third coordinate value
      */
     public Point(double d1, double d2, double d3){
-        this.xyz = new Double3(d1,d2,d3);
+        this (new Double3(d1,d2,d3));
     }
 
     /** Constructor to initialize Point based object with the same Point values
