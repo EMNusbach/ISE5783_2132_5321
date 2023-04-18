@@ -27,7 +27,7 @@ public class Ray {
      * @param p0 value for starting point
      * @param dir value for vectors direction
      */
-    Ray(Point p0, Vector dir){
+    public Ray(Point p0, Vector dir){
         this.p0 = p0;
         this.dir = dir.normalize();
     }

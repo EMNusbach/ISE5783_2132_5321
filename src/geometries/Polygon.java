@@ -25,39 +25,22 @@ public class Polygon implements Geometry {
     private final int size;
 
     /**
-     * Polygon constructor based on vertices list. The list must be ordered by edge
-     * path. The polygon must be convex.
-     *
-     * @param vertices list of vertices according to their order by
-     *                 edge path
-     * @throws IllegalArgumentException in any case of illegal combination of
-     *                                  vertices:
-     *                                  <ul>
-     *                                  <li>Less than 3 vertices</li>
-     *                                  <li>Consequent vertices are in the same
-     *                                  point
-     *                                  <li>The vertices are not in the same
-     *                                  plane</li>
-     *                                  <li>The order of vertices is not according
-     *                                  to edge path</li>
-     *                                  <li>Three consequent vertices lay in the
-     *                                  same line (180&#176; angle between two
-     *                                  consequent edges)
-     *                                  <li>The polygon is concave (not convex)</li>
-     *                                  </ul>
+     Constructs a polygon with the given vertices.
+     @param vertices the vertices of the polygon
+     @throws IllegalArgumentException if the number of vertices is less than 3,
+     if all the vertices don't lie in the same plane, or if the polygon is not convex
      */
     public Polygon(Point... vertices) {
         if (vertices.length < 3)
             throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
-        this.vertices = List.of(vertices);
+
+        this.vertices = List.of(vertices); // Store vertices as an immutable list
         size = vertices.length;
 
-        // Generate the plane according to the first three vertices and associate the
-        // polygon with this plane.
-        // The plane holds the invariant normal (orthogonal unit) vector to the polygon
+        // Generate the plane according to the first three vertices and associate the polygon with this plane.
+// The plane holds the invariant normal (orthogonal unit) vector to the polygon.
         plane = new Plane(vertices[0], vertices[1], vertices[2]);
-        if (size == 3) return; // no need for more tests for a Triangle
-
+        if (size == 3) return; // If the polygon is a triangle, we're done
         Vector n = plane.getNormal();
         // Subtracting any subsequent points will throw an IllegalArgumentException
         // because of Zero Vector if they are in the same point
