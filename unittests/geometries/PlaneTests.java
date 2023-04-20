@@ -1,8 +1,10 @@
 package geometries;
 
 import org.junit.jupiter.api.Test;
-import primitives.Point;
-import primitives.Vector;
+import primitives.*;
+
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,5 +34,17 @@ class PlaneTests {
         // Instantiate a Plane object and call the getNormal method
         // with a Point object as argument. Compare the resulting
         // Vector with the expected value
+    }
+
+    @Test
+    void testFindIntsersections() {
+        Plane plane = new Plane(new Point (0, 0, 1), new Point (0, 2, 0), new Point (1, 0, 0));
+
+        // ============ Equivalence Partitions Tests ==============
+        // The Ray's here ar not orthogonal and not parallels to the plane
+        // TC01: Ray intersect the plane (1 point)
+        Ray ray = new Ray(new Point(0,-2,0), new Vector(1, 4,-1));
+        assertEquals(List.of(new Point(1,2,-1)), plane.findIntersections(ray));
+        //
     }
 }

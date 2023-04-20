@@ -29,4 +29,8 @@ class TriangleTests {
         //TC01: simple test
         assertEquals(n, triangle.getNormal(point), "Triangle's normal is not correct");
     }
+
+    @Test
+    void testFindIntsersections() {
+    }
 }

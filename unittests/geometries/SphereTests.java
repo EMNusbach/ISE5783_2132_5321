@@ -27,4 +27,8 @@ class SphereTests {
         //TC01: simple test
         assertEquals(new Vector(1,0,0), s.getNormal(new Point(2,0,0)), "wrong normalized vector");
     }
+
+    @Test
+    void testFindIntsersections() {
+    }
 }

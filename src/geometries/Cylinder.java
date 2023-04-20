@@ -62,7 +62,7 @@ public class Cylinder extends Tube {
 
         // Compute the distance from the starting point of the axis ray to the intersection point
         // between the axis ray and the line perpendicular to the cylinder passing through the given point.
-        double t = P_P0.dotProduct(v);
+        double t = alignZero(P_P0.dotProduct(v));
 
 
        // in case the given point is on either of the upper or the lower bases of the cylinder.

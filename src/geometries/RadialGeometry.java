@@ -1,5 +1,10 @@
 package geometries;
 
+import primitives.Point;
+import primitives.Ray;
+
+import java.util.List;
+
 /** RadialGeometry is an abstract class that is implemented by all classes that contain a radius */
 public abstract class RadialGeometry implements Geometry {
 
@@ -18,6 +23,10 @@ public abstract class RadialGeometry implements Geometry {
      */
     public double getRadius() {
         return radius;
+    }
+
+    public List<Point> findIntersections(Ray ray){
+        return null;
     }
 }
 

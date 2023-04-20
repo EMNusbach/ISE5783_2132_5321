@@ -9,12 +9,12 @@ public class Point {
     protected final Double3 xyz;
 
     /** Constructor to initialize Point based object with its three coordinate values
-     * @param d1 first coordinate value
-     * @param d2 second coordinate value
-     * @param d3 third coordinate value
+     * @param x first coordinate value
+     * @param y second coordinate value
+     * @param z third coordinate value
      */
-    public Point(double d1, double d2, double d3){
-        this (new Double3(d1,d2,d3));
+    public Point(double x, double y, double z){
+        this (new Double3(x,y,z));
     }
 
     /** Constructor to initialize Point based object with the same Point values

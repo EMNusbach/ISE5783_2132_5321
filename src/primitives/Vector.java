@@ -6,9 +6,9 @@ import java.util.Objects;
 public class Vector extends Point{
 
     /** Constructor to initialize Vector based object with its three coordinate values
-     * @param d1 first coordinate value
-     * @param d2 second coordinate value
-     * @param d3 third coordinate value
+     * @param x first coordinate value
+     * @param y second coordinate value
+     * @param z third coordinate value
      */
     public Vector(double x,double y,double z){
         this (new Double3(x,y,z));
