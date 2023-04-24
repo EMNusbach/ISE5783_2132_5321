@@ -23,6 +23,10 @@ public class Ray {
         return dir;
     }
 
+    public Point getPoint(double t){
+        return (p0.add(dir.scale(t)));
+    }
+
     /** Constructor to initialize Ray based object with the same Ray values
      * @param p0 value for starting point
      * @param dir value for vectors direction
@@ -49,4 +53,6 @@ public class Ray {
         return "p0= " + p0 +
                 ", dir= " + dir;
     }
+
+
 }

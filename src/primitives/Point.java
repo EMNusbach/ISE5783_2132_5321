@@ -24,6 +24,27 @@ public class Point {
         this.xyz = xyz;
     }
 
+    /**
+     * @return the x coordinate
+     */
+    public double getX() {
+        return xyz.d1;
+    }
+
+    /**
+     * @return the y coordinate
+     */
+    public double getY() {
+        return xyz.d2;
+    }
+
+    /**
+     * @return the z coordinate
+     */
+    public double getZ() {
+        return xyz.d3;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

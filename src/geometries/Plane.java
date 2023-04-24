@@ -107,10 +107,10 @@ public class Plane implements Geometry {
         if (t<=0)
             return null;
 
-        Vector tv = ray.getDir().scale(t);
-        Point p= ray.getP0().add(tv);
+       // Vector tv = ray.getDir().scale(t);
+        //Point p= ray.getP0().add(tv);
 
-        return List.of(p);
+        return List.of(ray.getPoint(t));
     }
 
 
