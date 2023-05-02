@@ -5,6 +5,11 @@ import primitives.*;
 
 import java.util.*;
 
+/**
+ * Composite pattern
+ * a useful design pattern that allows us to create a complex image out of simple geometries.
+ */
+
 public class Geometries implements Intersectable {
     private List<Intersectable> geometries;
 
@@ -18,13 +23,17 @@ public class Geometries implements Intersectable {
             List<Point> gp = geom.findIntersections(ray);
 
             //Checking if three are intersections
-            if (gp != null)
+            if (gp != null) {
 
-                //going over the intersections points and adding them to the list we created
-                for (Point p : gp)
-                    l.add(p);
+                //firs initialization to the list
+                if (l == null)
+                    l = new LinkedList<>();
+
+                // Adding the intersections points to the list we created
+                    l.addAll(gp);
+            }
         }
-        // todo: check if there are identical points in l
+
 
         return l;
     }
@@ -38,7 +47,6 @@ public class Geometries implements Intersectable {
 
     /**
      * copy c_tor
-     *
      * @param geometries
      */
     public Geometries(Intersectable... geometries) {
@@ -49,7 +57,6 @@ public class Geometries implements Intersectable {
 
     /**
      * add new elements to the list
-     *
      * @param geometries
      */
     public void add(Intersectable... geometries) {

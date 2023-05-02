@@ -20,7 +20,6 @@ public class Sphere extends RadialGeometry {
 
     /**
      * Constructor to initialize Sphere based object with the same Sphere values
-     *
      * @param radius the radius of the sphere
      * @param center the center of the sphere
      */
@@ -31,7 +30,6 @@ public class Sphere extends RadialGeometry {
 
     /**
      * getting the center of the sphere
-     *
      * @return the center of sphere
      */
     public Point getCenter() {
@@ -82,10 +80,7 @@ public class Sphere extends RadialGeometry {
            // Point p2 = ray.getP0().add(ray.getDir().scale(t2));
             return List.of(ray.getPoint(t2));
         }
-
         return null;
-
-
     }
 }
 

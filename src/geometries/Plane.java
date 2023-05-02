@@ -55,7 +55,6 @@ public class Plane implements Geometry {
 
     /**
      * getting the point that is on the plane
-     *
      * @return the point
      */
     public Point getQ0() {
@@ -64,7 +63,6 @@ public class Plane implements Geometry {
 
     /**
      * getting vector that is vertical to the plane
-     *
      * @return the vector
      */
     public Vector getNormal() {
@@ -106,9 +104,6 @@ public class Plane implements Geometry {
         // The ray is pointing away from the plane.
         if (t<=0)
             return null;
-
-       // Vector tv = ray.getDir().scale(t);
-        //Point p= ray.getP0().add(tv);
 
         return List.of(ray.getPoint(t));
     }
