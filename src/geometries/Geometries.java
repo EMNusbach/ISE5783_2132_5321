@@ -11,18 +11,18 @@ public class Geometries implements Intersectable {
     @Override
     public List<Point> findIntersections(Ray ray) {
         //creating a list of all the intersections
-        List<Point> l=null;
+        List<Point> l = null;
 
         // going over geometries
-        for (Intersectable geom: geometries ){
-            List<Point> gp=geom.findIntersections(ray);
+        for (Intersectable geom : geometries) {
+            List<Point> gp = geom.findIntersections(ray);
 
             //Checking if three are intersections
-           if(gp!=null)
+            if (gp != null)
 
-               //going over the intersections points and adding them to the list we created
-              for (Point p:gp)
-                  l.add(p);
+                //going over the intersections points and adding them to the list we created
+                for (Point p : gp)
+                    l.add(p);
         }
         // todo: check if there are identical points in l
 
@@ -38,25 +38,23 @@ public class Geometries implements Intersectable {
 
     /**
      * copy c_tor
-     * @param geometries1
+     *
+     * @param geometries
      */
-    public Geometries(Intersectable... geometries1) {
+    public Geometries(Intersectable... geometries) {
         this();
-        add(geometries1);
+        add(geometries);
 
     }
 
     /**
      * add new elements to the list
      *
-     * @param geometries1
+     * @param geometries
      */
-    public void add(Intersectable... geometries1) {
-        for (Intersectable geom : geometries1) {
-            geometries.add(geom);
-        }
+    public void add(Intersectable... geometries) {
+        Collections.addAll(this.geometries, geometries);
     }
-
 
 
 }

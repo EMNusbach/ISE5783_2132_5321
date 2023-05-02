@@ -25,6 +25,12 @@ public class Triangle extends Polygon {
     }
 
     public List<Point> findIntersections(Ray ray) {
+
+        List<Point> result = plane.findIntersections(ray);
+
+        if(result== null){
+            return null;
+        }
         /**
          * vectors from p0 to the vertices of the triangle
          */
@@ -55,7 +61,7 @@ public class Triangle extends Polygon {
             return null;
 
         //the intersection point is inside the triangle - return the intersection point
-        return new Plane(vertices.get(0), vertices.get(1), vertices.get(2)).findIntersections(ray);
+        return result;
 
 
     }

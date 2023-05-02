@@ -9,6 +9,7 @@ class GeometriesTests {
     @Test
     void testFindIntersections() {
 
+
     }
 
     @Test
