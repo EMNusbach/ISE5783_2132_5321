@@ -5,6 +5,9 @@ import java.util.Objects;
 /** This class will serve all primitive classes based on a point  */
 public class Point {
 
+    /** A constant zero point*/
+    public final static Point ZERO = new Point(0d, 0d, 0d);
+
     /** A point with 3 coordinates */
     protected final Double3 xyz;
 

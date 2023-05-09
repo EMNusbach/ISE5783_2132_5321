@@ -1,5 +1,8 @@
 package renderer;
 import primitives.*;
+
+import java.util.MissingResourceException;
+
 import static primitives.Util.*;
 
 /**
@@ -20,6 +23,9 @@ public class Camera {
     private double width;
     private double height;
     private double distance;
+    private Point centerPoint;
+    private ImageWriter imageWriter;
+
 
     /**
      * ctor
@@ -27,15 +33,15 @@ public class Camera {
      * @param vUp
      * @param vTo
      */
-    public Camera(Point p0, Vector vUp, Vector vTo){
+    public Camera(Point p0, Vector vTo, Vector vUp){
+        // Checking if the two vectors are not vertical to one another
+        double vTo_vUp = alignZero(vTo.dotProduct(vUp));
+        if(!isZero(vUp.dotProduct(vTo)))
+            throw new IllegalArgumentException("The two vectors are not vertical to one another");
+
         this.p0 = p0;
         this.vUp = vUp.normalize();
         this.vTo = vTo.normalize();
-
-        // Checking if the two vectors are not vertical to one another
-        double vTo_vUp = alignZero(vTo.dotProduct(vUp));
-        if(vTo_vUp != 0)
-            throw new IllegalArgumentException("The two vectors are not vertical to one another");
 
         // creating a right vector that is vertical to vUp and vTo
         this.vRight = vTo.crossProduct(vUp).normalize();
@@ -90,13 +96,37 @@ public class Camera {
         return distance;
     }
 
+    public Point getCenterPoint(){return centerPoint;}
+
+    public void printGrid(int interval, Color color) {
+        if (this.imageWriter == null)
+            throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
+        imageWriter.printGrid(interval,color);
+    }
+
+
     /**
-     * TODO
-     * @param width
-     * @param height
-     * @return
+     * set the imageWriter  for the Camera
+     *
+     * @return the Camera object
      */
-    public Camera setVPSize(double width, double height){
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return this;
+    }
+
+    public void writeToImage() {
+        imageWriter.writeToImage();
+    }
+
+
+    public Camera setVPSize(double width, double height) {
+        if (isZero(width) || isZero(height)) {
+            throw new IllegalArgumentException("width or height cannot be zero");
+        }
+
+        this.width = width;
+        this.height = height;
         return this;
     }
 
@@ -105,8 +135,42 @@ public class Camera {
      * @param distance
      * @return
      */
+
+
     public Camera setVPDistance(double distance) {
+        if (isZero(distance)) {
+            throw new IllegalArgumentException("distance cannot be zero");
+        }
+
+        this.distance = distance;
+        // every time that we chang the distance from the view plane
+        // we will calculate the center point of the view plane aging
+        centerPoint = p0.add(vTo.scale(this.distance));
         return this;
+    }
+
+
+    private Point getCenterOfPixel(double nX, double nY, int j, int i) {
+        // calculate the ratio of the pixel by the height and by the width of the view plane
+        // the ratio Ry = h/Ny, the height of the pixel
+        double rY = alignZero(height / nY);
+        // the ratio Rx = w/Nx, the width of the pixel
+        double rX = alignZero(width / nX);
+
+        // Xj = (j - (Nx -1)/2) * Rx
+        double xJ = alignZero((j - ((nX - 1d) / 2d)) * rX);
+        // Yi = -(i - (Ny - 1)/2) * Ry
+        double yI = alignZero(-(i - ((nY - 1d) / 2d)) * rY);
+
+        Point pIJ = centerPoint;
+
+        if (xJ != 0d) {
+            pIJ = pIJ.add(vRight.scale(xJ));
+        }
+        if (yI != 0d) {
+            pIJ = pIJ.add(vUp.scale(yI));
+        }
+        return pIJ;
     }
 
     /**
@@ -116,10 +180,14 @@ public class Camera {
      * @param i - index of a row in the matrix
      * @return
      */
-    public Ray constructRay(int nX, int nY, int j, int i){
-        return null;
-    }
 
+    public Ray constructRay(double nX, double nY, int j, int i) {
+        Point pIJ = getCenterOfPixel(nX, nY, j, i); // center point of the pixel
+
+        //Vi,j = Pi,j - P0, the direction of the ray to the pixel(j, i)
+        Vector vIJ = pIJ.subtract(p0);
+        return new Ray(p0, vIJ);
+    }
 
 
 
