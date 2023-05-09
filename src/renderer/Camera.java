@@ -1,4 +1,5 @@
 package renderer;
+
 import primitives.*;
 
 import java.util.MissingResourceException;
@@ -25,18 +26,19 @@ public class Camera {
     private double distance;
     private Point centerPoint;
     private ImageWriter imageWriter;
-
+    private RayTracerBase rayTracer;
 
     /**
-     * ctor
+     * c_tor
+     *
      * @param p0
      * @param vUp
      * @param vTo
      */
-    public Camera(Point p0, Vector vTo, Vector vUp){
+    public Camera(Point p0, Vector vTo, Vector vUp) {
         // Checking if the two vectors are not vertical to one another
         double vTo_vUp = alignZero(vTo.dotProduct(vUp));
-        if(!isZero(vUp.dotProduct(vTo)))
+        if (!isZero(vUp.dotProduct(vTo)))
             throw new IllegalArgumentException("The two vectors are not vertical to one another");
 
         this.p0 = p0;
@@ -90,18 +92,27 @@ public class Camera {
     }
 
     /**
-     * @return  distance of view plane from camera
+     * @return distance of view plane from camera
      */
     public double getDistance() {
         return distance;
     }
 
-    public Point getCenterPoint(){return centerPoint;}
+    public Point getCenterPoint() {
+        return centerPoint;
+    }
 
-    public void printGrid(int interval, Color color) {
+    /**
+     * Prints a grid on the image with the specified interval and color.
+     *
+     * @param interval the interval between grid lines
+     * @param color    the color of the grid lines
+     * @throws MissingResourceException if the imageWriter is null
+     */
+    public void printGrid(int interval, Color color) throws MissingResourceException {
         if (this.imageWriter == null)
             throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
-        imageWriter.printGrid(interval,color);
+        imageWriter.printGrid(interval, color);
     }
 
 
@@ -131,12 +142,8 @@ public class Camera {
     }
 
     /**
-     * TODO
      * @param distance
-     * @return
      */
-
-
     public Camera setVPDistance(double distance) {
         if (isZero(distance)) {
             throw new IllegalArgumentException("distance cannot be zero");
@@ -150,16 +157,25 @@ public class Camera {
     }
 
 
+    /**
+     * Calculates the center point of a pixel on the view plane.
+     *
+     * @param nX The number of pixels along the width of the view plane.
+     * @param nY The number of pixels along the height of the view plane.
+     * @param j  The horizontal index of the pixel.
+     * @param i  The vertical index of the pixel.
+     * @return The center point of the specified pixel.
+     */
     private Point getCenterOfPixel(double nX, double nY, int j, int i) {
-        // calculate the ratio of the pixel by the height and by the width of the view plane
-        // the ratio Ry = h/Ny, the height of the pixel
+// calculate the ratio of the pixel by the height and by the width of the view plane
+// the ratio Ry = h/Ny, the height of the pixel
         double rY = alignZero(height / nY);
-        // the ratio Rx = w/Nx, the width of the pixel
+// the ratio Rx = w/Nx, the width of the pixel
         double rX = alignZero(width / nX);
 
-        // Xj = (j - (Nx -1)/2) * Rx
+// Xj = (j - (Nx -1)/2) * Rx
         double xJ = alignZero((j - ((nX - 1d) / 2d)) * rX);
-        // Yi = -(i - (Ny - 1)/2) * Ry
+// Yi = -(i - (Ny - 1)/2) * Ry
         double yI = alignZero(-(i - ((nY - 1d) / 2d)) * rY);
 
         Point pIJ = centerPoint;
@@ -176,8 +192,8 @@ public class Camera {
     /**
      * @param nX - number of columns in the resolution matrix
      * @param nY - number of rows in the resolution matrix
-     * @param j - index of a column in the matrix
-     * @param i - index of a row in the matrix
+     * @param j  - index of a column in the matrix
+     * @param i  - index of a row in the matrix
      * @return
      */
 
@@ -190,7 +206,33 @@ public class Camera {
     }
 
 
+    /**
+     * Renders the image by tracing rays through each pixel of the image plane.
+     * The resulting color for each pixel is calculated using ray tracing.
+     *
+     * @throws MissingResourceException if any required camera data is missing.
+     */
+    public void renderImage() throws MissingResourceException {
+        if (p0 == null || vRight == null
+                || vUp == null || vTo == null || distance == 0
+                || width == 0 || height == 0 || centerPoint == null
+                || imageWriter == null || rayTracer == null) {
+            throw new MissingResourceException("Missing camera data", Camera.class.getName(), null);
+        }
 
+        for (int i = 0; i < imageWriter.getNy(); i++) {
+            for (int j = 0; j < imageWriter.getNx(); j++) {
+                // Pixel coloring by ray
+                Ray ray = constructRay(imageWriter.getNy(), imageWriter.getNx(), j, i);
+                imageWriter.writePixel(i, j, rayTracer.TraceRay(ray));
+            }
+        }
+    }
+
+    public Camera setRayTracer(RayTracerBase rayTracer) {
+        this.rayTracer = rayTracer;
+        return this;
+    }
 
 
 }

@@ -48,7 +48,7 @@ public class Plane implements Geometry {
      * @param p A point that is on the plane
      * @param vector A vector that is vertical to the plane
      */
-    Plane(Point p, Vector vector) {
+    public Plane(Point p, Vector vector) {
         this.q0 = p;
         this.normal = vector.normalize();
     }
