@@ -33,6 +33,11 @@ public class RayTracerBasic extends RayTracerBase {
     @Override
     public Color TraceRay(Ray ray) {
         List<Point> pointList = scene.geometries.findIntersections(ray);
+
+        if(pointList==null) {
+            return scene.background;
+        }
+
         Point closestPoint = ray.findClosestPoint(pointList);
         return calcColor(closestPoint);
     }

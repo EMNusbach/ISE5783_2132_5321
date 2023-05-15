@@ -224,7 +224,7 @@ public class Camera {
             for (int j = 0; j < imageWriter.getNx(); j++) {
                 // Pixel coloring by ray
                 Ray ray = constructRay(imageWriter.getNy(), imageWriter.getNx(), j, i);
-                imageWriter.writePixel(i, j, rayTracer.TraceRay(ray));
+                imageWriter.writePixel(j, i, rayTracer.TraceRay(ray));
             }
         }
     }

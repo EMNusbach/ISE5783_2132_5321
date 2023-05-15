@@ -17,11 +17,10 @@ public class Scene {
     public String name = null;
     public Color background = Color.BLACK; //default color
     public AmbientLight ambientLight = new AmbientLight();
-    public Geometries geometries = null;
+    public Geometries geometries= new Geometries();// = null;
 
     public Scene(String _name) {
         name = _name;
-        geometries = new Geometries();
     }
 
 

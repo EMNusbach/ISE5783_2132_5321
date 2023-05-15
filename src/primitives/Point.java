@@ -1,102 +1,105 @@
 package primitives;
-
+import java.math.*;
 import java.util.Objects;
-
-/** This class will serve all primitive classes based on a point  */
+import primitives.Double3;
 public class Point {
-
-    /** A constant zero point*/
+    protected Double3 xyz;
+    /**
+     * zero constants of point (0, 0, 0)
+     */
     public final static Point ZERO = new Point(0d, 0d, 0d);
-
-    /** A point with 3 coordinates */
-    protected final Double3 xyz;
-
-    /** Constructor to initialize Point based object with its three coordinate values
-     * @param x first coordinate value
-     * @param y second coordinate value
-     * @param z third coordinate value
-     */
-    public Point(double x, double y, double z){
-        this (new Double3(x,y,z));
-    }
-
-    /** Constructor to initialize Point based object with the same Point values
-     * @param xyz number value for all three coordinates
-     */
-    Point(Double3 xyz){
-        this.xyz = xyz;
-    }
-
     /**
-     * @return the x coordinate
+     * constructor
+     * @param x value of x
+     * @param y value of y
+     * @param z value of z
      */
-    public double getX() {
-        return xyz.d1;
+    public Point(double x, double y, double z) {
+        xyz=new Double3(x,y,z);
     }
-
     /**
-     * @return the y coordinate
+     *constructor
+     * @param double3 value of point
      */
-    public double getY() {
-        return xyz.d2;
+    public Point(Double3 double3){
+        xyz=double3;
     }
-
     /**
-     * @return the z coordinate
+     *getter of point
+     * @return Double3
      */
-    public double getZ() {
-        return xyz.d3;
+    public Double3 getXyz() {
+        return xyz;
     }
-
+    /**
+     * getX of point
+     * @return
+     */
+    public double getX() {return xyz.d1; }
+    /**
+     * getY of point
+     * @return
+     */
+    public double getY() {return xyz.d2; }
+    /**
+     * getZ of point
+     * @return
+     */
+    public double getZ() {return xyz.d3; }
+    /**
+     *Connecting vector and dot
+     * @param vector to adding
+     * @return point
+     */
+    public Point add(Vector vector) {
+        return new Point(this.xyz.add(vector.xyz));
+    }
+    /**
+     *Subtraction vector and dot
+     * @param point to subtract
+     * @return Vector
+     */
+    public Vector subtract(Point point) {
+        return new Vector(xyz.subtract(point.xyz));
+    }
+    /**
+     *Distance squared
+     * @param point
+     * @return Distance squared
+     */
+    public double distanceSquared(Point point) {
+        Double3 result =this.xyz.subtract(point.xyz);
+        return (result.d1*result.d1)+(result.d2*result.d2)+(result.d3*result.d3);
+    }
+    /**
+     *Distance
+     * @param point
+     * @return Distance
+     */
+    public double distance(Point point) {
+        return Math.sqrt(this.distanceSquared(point));
+    }
+    /**
+     *Compares two points
+     * @param o
+     * @return Boolean value
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Point point)) return false;
-        return this.xyz.equals(point.xyz);
+        if (!(o instanceof Point)) return false;
+        Point point = (Point) o;
+        return xyz.equals(point.xyz);
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(xyz);
-    }
-
+    /**
+     *toString
+     * @return
+     */
     @Override
     public String toString() {
-        return "xyz= " + xyz;
-    }
-
-
-    /** Subtract two floating point triads into a new triad where each couple of numbers is subtracted
-     * @param p right handle side operand for subtraction
-     * @return result of subtraction
-     */
-    public Vector subtract(Point p){
-        return new Vector(this.xyz.subtract(p.xyz));
-    }
-
-    /** Sum two floating point triads into a new triad where each couple of numbers is summarized
-     * @param v right handle side operand for addition
-     * @return result of add
-     */
-    public Point add(Vector v){
-        return new Point(this.xyz.add(v.xyz));
-    }
-
-    /** The distance between two points, squared
-     * @param p right handle side operand for distance squared
-     * @return result of distance squared
-     */
-    public double distanceSquared(Point p){
-        return (((this.xyz.d1 - p.xyz.d1) * (this.xyz.d1 - p.xyz.d1)) + ((this.xyz.d2 - p.xyz.d2) * (this.xyz.d2 - p.xyz.d2)) + ((this.xyz.d3 - p.xyz.d3) * (this.xyz.d3 - p.xyz.d3)));
-    }
-
-    /** The distance between two points
-     * @param p right handle side operand for distance
-     * @return result of distance
-     */
-    public double distance(Point p){
-        return Math.sqrt(this.distanceSquared(p));
+        return xyz.toString();
     }
 
 }
+
 
