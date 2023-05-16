@@ -14,7 +14,7 @@ import primitives.Vector;
  *
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
     /**
      * List of polygon's vertices
      */
@@ -75,7 +75,18 @@ public class Polygon implements Geometry {
         return plane.getNormal(point);
     }
 
+    @Override
     public List<Point> findIntersections(Ray ray){
         return null;
+    }
+
+    @Override
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
+        var intersections = plane.findGeoIntersections(ray);
+
+        for( var intersect: intersections)
+            intersect.geometry =this;
+
+        return intersections;
     }
 }

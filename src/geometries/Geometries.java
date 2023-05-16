@@ -10,7 +10,7 @@ import java.util.*;
  * a useful design pattern that allows us to create a complex image out of simple geometries.
  */
 
-public class Geometries implements Intersectable {
+public class Geometries extends Intersectable {
     private List<Intersectable> geometries;
 
     @Override
@@ -34,9 +34,9 @@ public class Geometries implements Intersectable {
             }
         }
 
-
         return l;
     }
+
 
     /**
      * Default c_tor

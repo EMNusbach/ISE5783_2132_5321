@@ -6,7 +6,7 @@ import primitives.Ray;
 import java.util.List;
 
 /** RadialGeometry is an abstract class that is implemented by all classes that contain a radius */
-public abstract class RadialGeometry implements Geometry {
+public abstract class RadialGeometry extends Geometry {
 
     /** a radius for use by different geometry*/
     protected final double radius;
@@ -25,6 +25,7 @@ public abstract class RadialGeometry implements Geometry {
         return radius;
     }
 
+    @Override
     public List<Point> findIntersections(Ray ray){
         return null;
     }

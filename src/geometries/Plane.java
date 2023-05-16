@@ -11,7 +11,7 @@ import static primitives.Util.*;
 /**
  * plane class is a polygon represented by a point and a vector
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
     /**
      * A point that is on the plane
      */
@@ -78,6 +78,7 @@ public class Plane implements Geometry {
         return normal;
     }
 
+    @Override
     public List<Point> findIntersections(Ray ray){
 
         // q0=p0 = starting point of the ray
@@ -106,6 +107,37 @@ public class Plane implements Geometry {
             return null;
 
         return List.of(ray.getPoint(t));
+    }
+
+    @Override
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
+
+        // q0=p0 = starting point of the ray
+        if(q0.equals(ray.getP0()))
+            return null;
+
+        // Calculating the numerator.
+        Vector p0_q0 = q0.subtract(ray.getP0());
+        double numerator= alignZero( normal.dotProduct(p0_q0));
+
+        // In case that the plane contains the ray or is parallel to it.
+        if(isZero(numerator))
+            return null;
+
+        // Calculating the denominator
+        double denominator = alignZero(normal.dotProduct(ray.getDir()));
+
+        // In case that the plane is parallel to it.
+        if(isZero(denominator))
+            return null;
+
+        double t =alignZero(numerator / denominator);
+
+        // The ray is pointing away from the plane.
+        if (t<=0)
+            return null;
+
+        return List.of(new GeoPoint(this,ray.getPoint(t)));
     }
 
 
