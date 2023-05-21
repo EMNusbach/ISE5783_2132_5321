@@ -1,60 +1,74 @@
 package scene;
-/**
- * Scene class - combines all the objects needed for the scene:
- * name
- * background
- * ambient lighting
- * the geometry model
- */
 
-import geometries.Geometries;
-import geometries.Intersectable;
-import primitives.Color;
-import java.util.*;
 import lighting.*;
+import geometries.Geometries;
+import primitives.Color;
 
-public class Scene {
-    public String name = null;
-    public Color background = Color.BLACK; //default color
-    public AmbientLight ambientLight = new AmbientLight();
-    public Geometries geometries= new Geometries();// = null;
+import java.util.List;
+import java.util.LinkedList;
 
-    public Scene(String _name) {
-        name = _name;
-    }
-
-
-    // ***************** Setters ********************** //
-    // ** all setters implements the Builder Design Pattern **//
-
-    /**
-     * set the Background color for the scene
-     * @return the scene object
+/**
+     * Graphic scene in our 3D model
+     * Scene contains geometric shapes and light sources
+     * we are using the builder pattern design
      */
-    public Scene setBackground(Color _background) {
-        this.background = _background;
-        return this;
+    public class Scene {
+        public String name = null;
+        public Color background = Color.BLACK;
+        public AmbientLight ambientLight = new AmbientLight();
+        public Geometries geometries= new Geometries();
+        public List<LightSource> lighting = new LinkedList<>();
+        /**
+         * Constructor for SceneBuilder
+         * to get the Scene instance, you must call the methods
+         * @param name the name of the scene
+         */
+        public Scene(String name) {
+            this.name = name;
+        }
+
+        //region Setters
+        // ***************** Setters ********************** //
+        // ** all setters implements the Builder Design Pattern **//
+
+        /**
+         * set the Background color for the scene
+         *
+         * @return the scene object
+         */
+        public scene.Scene setBackground(Color background) {
+            this.background = background;
+            return this;
+        }
+
+        /**
+         * set the Ambient Light for the scene
+         *
+         * @return the scene object
+         */
+        public scene.Scene setAmbientLight(AmbientLight ambientLight) {
+            this.ambientLight = ambientLight;
+            return this;
+        }
+
+        /**
+         * set the geometry model - a list of geometries
+         *
+         * @return the scene object
+         */
+        public scene.Scene setGeometries(Geometries geometries) {
+            this.geometries = geometries;
+            return this;
+        }
+
+        /**
+         * set the lightSource - a list of light sources
+         *
+         * @return the scene object
+         */
+        public scene.Scene setLighting(List<LightSource> lighting) {
+            this.lighting = lighting;
+            return this;
+        }
+        //endregion
     }
-
-    /**
-     * set the Ambient Light for the scene
-     *
-     * @return the scene object
-     */
-    public Scene setAmbientLight(AmbientLight _ambientLight) {
-        this.ambientLight = _ambientLight;
-        return this;
-    }
-
-    /**
-     * set the geometry model - a list of geometries
-     *
-     * @return the scene object
-     */
-    public Scene setGeometries(Geometries _geometries) {
-        this.geometries = _geometries;
-        return this;
-    }
-
-
-}

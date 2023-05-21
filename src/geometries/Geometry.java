@@ -7,6 +7,7 @@ import primitives.*;
  * emission - the glowing color of the geometry
  * */
 public abstract class Geometry extends Intersectable{
+    private Material material = new Material();
 
     protected Color emission = Color.BLACK;
 
@@ -17,6 +18,25 @@ public abstract class Geometry extends Intersectable{
     public Color getEmission() {
         return emission;
     }
+
+
+    /**
+     * setter of material
+     * @param material
+     * @return material
+     */
+    public Geometry setMaterial(Material material) {
+        this.material = material;
+        return this;
+    }
+
+    /**
+     * getter of material
+     * @return material
+     */
+    public Material getMaterial() {return material; }
+
+
 
     /**
      * set the emission for the Geometry

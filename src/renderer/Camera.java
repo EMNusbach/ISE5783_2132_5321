@@ -7,130 +7,123 @@ import java.util.MissingResourceException;
 import static primitives.Util.*;
 
 /**
- * po- center of the camera
- * vUp- axis up;
- * vTo- axis towards the image;
- * vRight- axis right;
- * width - of view plane
- * height - of view plane
- * distance - of view plane from camera
+ * this class represent camera by location <br/>
+ * and directions toward, right and up to the scene that lives in a virtual view plane. <br/>
+ * The view plane is represent by height and wight
  */
 public class Camera {
 
     private Point p0;
+    private Vector vRight;
     private Vector vUp;
     private Vector vTo;
-    private Vector vRight;
+    private double distance;
     private double width;
     private double height;
-    private double distance;
     private Point centerPoint;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
 
     /**
-     * c_tor
+     * constructor for camera
      *
-     * @param p0
-     * @param vUp
-     * @param vTo
+     * @param p0  the location of the camera
+     * @param vTo the direction to the view plane
+     * @param vUp the direction up
+     * @throws IllegalArgumentException if vTo and vUp is not orthogonal
      */
     public Camera(Point p0, Vector vTo, Vector vUp) {
-        // Checking if the two vectors are not vertical to one another
-        double vTo_vUp = alignZero(vTo.dotProduct(vUp));
-        if (!isZero(vUp.dotProduct(vTo)))
-            throw new IllegalArgumentException("The two vectors are not vertical to one another");
+        if (!isZero(vUp.dotProduct(vTo))) {
+            throw new IllegalArgumentException("The vectors 'up' and and 'to' is not orthogonal");
+        }
 
         this.p0 = p0;
         this.vUp = vUp.normalize();
         this.vTo = vTo.normalize();
-
-        // creating a right vector that is vertical to vUp and vTo
-        this.vRight = vTo.crossProduct(vUp).normalize();
+        vRight = this.vTo.crossProduct(this.vUp).normalize();
     }
 
+    //region Getters/Setters
     /**
-     * @return center of the camera
+     * get of p0
+     *
+     * @return point
      */
     public Point getP0() {
         return p0;
     }
 
     /**
-     * @return axis up
-     */
-    public Vector getvUp() {
-        return vUp;
-    }
-
-    /**
-     * @return axis towards the image
-     */
-    public Vector getvTo() {
-        return vTo;
-    }
-
-    /**
-     * @return axis right
+     * get of vRight
+     *
+     * @return vector
      */
     public Vector getvRight() {
         return vRight;
     }
 
     /**
-     * @return width of view plane
+     * get of vUp
+     *
+     * @return vector
+     */
+    public Vector getvUp() {
+        return vUp;
+    }
+
+    /**
+     * get of vTo
+     *
+     * @return vector
+     */
+    public Vector getvTo() {
+        return vTo;
+    }
+
+    /**
+     * get of distance
+     *
+     * @return double
+     */
+    public double getDistance() {
+        return distance;
+    }
+
+    /**
+     * get of width
+     *
+     * @return double
      */
     public double getWidth() {
         return width;
     }
 
     /**
-     * @return height  of view plane
+     * get of height
+     *
+     * @return double
      */
     public double getHeight() {
         return height;
     }
 
     /**
-     * @return distance of view plane from camera
+     * get of centerPoint
+     *
+     * @return point
      */
-    public double getDistance() {
-        return distance;
-    }
-
-    public Point getCenterPoint() {
+    public Point get_centerVPPoint() {
         return centerPoint;
     }
 
     /**
-     * Prints a grid on the image with the specified interval and color.
+     * set the view plane size
      *
-     * @param interval the interval between grid lines
-     * @param color    the color of the grid lines
-     * @throws MissingResourceException if the imageWriter is null
+     * @param width  the width of the view plane
+     * @param height the height of the view plane
+     * @return this camera (like builder pattern)
+     * @throws IllegalArgumentException if width or height equal to 0
      */
-    public void printGrid(int interval, Color color) throws MissingResourceException {
-        if (this.imageWriter == null)
-            throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
-        imageWriter.printGrid(interval, color);
-    }
-
-
-    /**
-     * set the imageWriter  for the Camera
-     *
-     * @return the Camera object
-     */
-    public Camera setImageWriter(ImageWriter imageWriter) {
-        this.imageWriter = imageWriter;
-        return this;
-    }
-
-    public void writeToImage() {
-        imageWriter.writeToImage();
-    }
-
-
     public Camera setVPSize(double width, double height) {
         if (isZero(width) || isZero(height)) {
             throw new IllegalArgumentException("width or height cannot be zero");
@@ -142,7 +135,11 @@ public class Camera {
     }
 
     /**
-     * @param distance
+     * set the distance from the camera to the view plane
+     *
+     * @param distance the distance
+     * @return this camera (like builder pattern)
+     * @throws IllegalArgumentException if distance = 0
      */
     public Camera setVPDistance(double distance) {
         if (isZero(distance)) {
@@ -155,49 +152,71 @@ public class Camera {
         centerPoint = p0.add(vTo.scale(this.distance));
         return this;
     }
-
-
     /**
-     * Calculates the center point of a pixel on the view plane.
+     * set the rayTracer ray from the camera to the view plane
      *
-     * @param nX The number of pixels along the width of the view plane.
-     * @param nY The number of pixels along the height of the view plane.
-     * @param j  The horizontal index of the pixel.
-     * @param i  The vertical index of the pixel.
-     * @return The center point of the specified pixel.
+     * @param rayTracer the rayTracer
+     * @return this camera (like builder pattern)
      */
-    private Point getCenterOfPixel(double nX, double nY, int j, int i) {
-// calculate the ratio of the pixel by the height and by the width of the view plane
-// the ratio Ry = h/Ny, the height of the pixel
-        double rY = alignZero(height / nY);
-// the ratio Rx = w/Nx, the width of the pixel
-        double rX = alignZero(width / nX);
-
-// Xj = (j - (Nx -1)/2) * Rx
-        double xJ = alignZero((j - ((nX - 1d) / 2d)) * rX);
-// Yi = -(i - (Ny - 1)/2) * Ry
-        double yI = alignZero(-(i - ((nY - 1d) / 2d)) * rY);
-
-        Point pIJ = centerPoint;
-
-        if (xJ != 0d) {
-            pIJ = pIJ.add(vRight.scale(xJ));
-        }
-        if (yI != 0d) {
-            pIJ = pIJ.add(vUp.scale(yI));
-        }
-        return pIJ;
+    public Camera setRayTracer(RayTracerBase rayTracer) {
+        this.rayTracer = rayTracer;
+        return  this;
     }
 
     /**
-     * @param nX - number of columns in the resolution matrix
-     * @param nY - number of rows in the resolution matrix
-     * @param j  - index of a column in the matrix
-     * @param i  - index of a row in the matrix
-     * @return
+     * set the imageWriter  for the Camera
+     *
+     * @return the Camera object
      */
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return this;
+    }
+//endregion
 
-    public Ray constructRay(double nX, double nY, int j, int i) {
+    /**
+     * Checks that all fields are full and creates an image
+     */
+    public Camera renderImage() {
+        if (p0 == null || vRight == null
+                || vUp == null || vTo == null || distance == 0
+                || width == 0 || height == 0 || centerPoint == null
+                || imageWriter == null || rayTracer == null) {
+            throw new MissingResourceException("Missing camera data", Camera.class.getName(), null);
+        }
+        for (int i = 0; i < imageWriter.getNy(); i++) {
+            for (int j = 0; j < imageWriter.getNx(); j++) {
+                // Pixel coloring by ray
+                Ray ray = constructRay(imageWriter.getNx(), imageWriter.getNy(), j, i);
+                imageWriter.writePixel(j,i, rayTracer.TraceRay(ray));
+
+            }
+        }
+        return this;
+    }
+
+    /**
+     *Grid printing
+     * @param interval The space between pixels
+     * @param color color of grid
+     */
+    public void printGrid(int interval, Color color) {
+        if (this.imageWriter == null)
+            throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
+        imageWriter.printGrid(interval,color);
+    }
+
+    /**
+     * construct ray through a pixel in the view plane
+     * nX and nY create the resolution
+     *
+     * @param nX number of pixels in the width of the view plane
+     * @param nY number of pixels in the height of the view plane
+     * @param j  index row in the view plane
+     * @param i  index column in the view plane
+     * @return ray that goes through the pixel (j, i)  Ray(p0, Vi,j)
+     */
+    public Ray constructRay(int nX, int nY, int j, int i) {
         Point pIJ = getCenterOfPixel(nX, nY, j, i); // center point of the pixel
 
         //Vi,j = Pi,j - P0, the direction of the ray to the pixel(j, i)
@@ -205,34 +224,88 @@ public class Camera {
         return new Ray(p0, vIJ);
     }
 
+    /**
+     * get the center point of the pixel in the view plane
+     *
+     * @param nX number of pixels in the width of the view plane
+     * @param nY number of pixels in the height of the view plane
+     * @param j  index row in the view plane
+     * @param i  index column in the view plane
+     * @return the center point of the pixel
+     */
+    private Point getCenterOfPixel(int nX, int nY, int j, int i) {
+        // calculate the ratio of the pixel by the height and by the width of the view plane
+        // the ratio Ry = h/Ny, the height of the pixel
+        double rY = alignZero(height / nY);
+        // the ratio Rx = w/Nx, the width of the pixel
+        double rX = alignZero(width / nX);
+
+        // Xj = (j - (Nx -1)/2) * Rx
+        double xJ = alignZero((j - ((nX - 1d) / 2d)) * rX);
+        // Yi = -(i - (Ny - 1)/2) * Ry
+        double yI = alignZero(-(i - ((nY - 1d) / 2d)) * rY);
+
+        Point pIJ = centerPoint;
+
+        if (!isZero(xJ)) {
+            pIJ = pIJ.add(vRight.scale(xJ));
+        }
+        if (!isZero(yI)) {
+            pIJ = pIJ.add(vUp.scale(yI));
+        }
+        return pIJ;
+    }
 
     /**
-     * Renders the image by tracing rays through each pixel of the image plane.
-     * The resulting color for each pixel is calculated using ray tracing.
-     *
-     * @throws MissingResourceException if any required camera data is missing.
+     * Invites the coloring function
      */
-    public void renderImage() throws MissingResourceException {
-        if (p0 == null || vRight == null
-                || vUp == null || vTo == null || distance == 0
-                || width == 0 || height == 0 || centerPoint == null
-                || imageWriter == null || rayTracer == null) {
-            throw new MissingResourceException("Missing camera data", Camera.class.getName(), null);
-        }
+    public void writeToImage() {
+        imageWriter.writeToImage();
+    }
+    /**
+     * moving the camera from her location
+     * @param newPosition the new position of the camera
+     * @param newPointOfView new point of view of the camera
+     * @return the new camera from the new position to the new point of view
+     */
+    public Camera moveCamera(Point newPosition, Point newPointOfView) {
+        // the new vTo of the the camera
+        Vector new_vTo = newPointOfView.subtract(newPosition).normalize();
+        // the angle between the new vTo and the old
+        double theta = new_vTo.dotProduct(vTo);
+        // axis vector for the rotation
+        Vector k = vTo.crossProduct(new_vTo).normalize();
 
-        for (int i = 0; i < imageWriter.getNy(); i++) {
-            for (int j = 0; j < imageWriter.getNx(); j++) {
-                // Pixel coloring by ray
-                Ray ray = constructRay(imageWriter.getNy(), imageWriter.getNx(), j, i);
-                imageWriter.writePixel(j, i, rayTracer.TraceRay(ray));
-            }
-        }
+        vTo = new_vTo;
+        p0 = newPosition;
+
+        return rotateCamera(theta, k);
+    }
+    /**
+     * Rotate the camera by rotating the vectors of the camera directions <br/>
+     * According the Rodrigues' rotation formula
+     * @param theta angle theta according to the right hand rule in degrees
+     * @return this camera after the rotating
+     */
+    public Camera rotateCamera(double theta) {
+        return rotateCamera(theta, vTo);
     }
 
-    public Camera setRayTracer(RayTracerBase rayTracer) {
-        this.rayTracer = rayTracer;
+    /**
+     * Rotate the camera by rotating the vectors of the camera directions <br/>
+     * According the Rodrigues' rotation formula
+     * @param theta angle theta according to the right hand rule in degrees
+     * @param k axis vector for the rotation
+     * @return this camera after the rotating
+     */
+    private Camera rotateCamera(double theta, Vector k) {
+        double radianAngle = Math.toRadians(theta);
+        double cosTheta = alignZero(Math.cos(radianAngle));
+        double sinTheta = alignZero(Math.sin(radianAngle));
+
+        vRight.rotateVector(k, cosTheta, sinTheta);
+        vUp.rotateVector(k, cosTheta, sinTheta);
+
         return this;
     }
-
-
 }

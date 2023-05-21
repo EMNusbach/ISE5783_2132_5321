@@ -1,66 +1,81 @@
 package geometries;
-
 import primitives.*;
 
-import java.util.List;
-
-import static primitives.Util.isZero;
-
+import java.util.*;
 /**
- *  A class that handles the intersection points.
+ * interface to get intersection points of ray with some geometry
  */
 public abstract class Intersectable {
-
-
    /**
-    * TODO
-    * an auxiliary class the represents
-    * geometry -
-    * point -
+    * A class that contains a point and the geometry that contains it
     */
    public static class GeoPoint {
+      /**
+       * the geometry that we find the color of a certain point
+       */
       public Geometry geometry;
+      /**
+       * the point on the geometry that we get the color from
+       */
       public Point point;
 
       /**
-       *
-       * @param geometry
-       * @param point
-       * @return
+       * constructor for the GeoPoint class
+       * @param geometry the geometry
+       * @param point the point that interact the geometry
        */
-      GeoPoint(Geometry geometry, Point point){
+      public GeoPoint(Geometry geometry, Point point) {
          this.geometry = geometry;
          this.point = point;
       }
-
+      /**
+       * equals
+       * @param o the Object
+       * @return boolean value
+       */
       @Override
       public boolean equals(Object o) {
          if (this == o) return true;
-         if (!(o instanceof GeoPoint geoPoint)) return false;
-         return this.geometry.equals(geoPoint.geometry) && this.point.equals(geoPoint.point);
+         if (!(o instanceof GeoPoint)) return false;
+         GeoPoint geoPoint = (GeoPoint) o;
+         return geometry.equals(geoPoint.geometry) && point.equals(geoPoint.point);
       }
-
+      /**
+       * toString
+       * @return string
+       */
       @Override
       public String toString() {
-         return "GeoPoint{" +
-                 "geometry=" + geometry +
-                 ", point=" + point +
-                 '}';
+         return "GeoPoint:\n" +
+                 "geometry: " + geometry +
+                 "\npoint: " + point ;
       }
-
+   }
+   /**
+    * find intersections of ray with geometry shape
+    * @param ray ray that cross the geometry
+    * @return list of intersection points that were found
+    */
+   public List<Point> findIntersections(Ray ray) {
+      var geoList = findGeoIntersections(ray);
+      return geoList == null ? null
+              : geoList.stream().map(gp -> gp.point).toList();
    }
 
-   public List<Point> findIntersections(Ray ray);
-
-   public final List<GeoPoint> findGeoIntersections(Ray ray){
+   /**
+    * find intersections of ray with geometry shape
+    * @param ray ray that cross the geometry
+    * @return list of intersection points that were found
+    */
+   public List<GeoPoint> findGeoIntersections(Ray ray){
       return findGeoIntersectionsHelper(ray);
    }
 
-   protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
-
-
-
-
-
+   /**
+    *
+    * @param ray
+    * @return
+    */
+   protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 
 }

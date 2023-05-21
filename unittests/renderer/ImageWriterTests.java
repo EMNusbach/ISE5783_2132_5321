@@ -1,4 +1,3 @@
-
 package renderer;
 
 import org.junit.jupiter.api.Test;
@@ -6,9 +5,13 @@ import primitives.Color;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains a test case for the writeToImage() method of the ImageWriter class.
+ */
 class ImageWriterTest {
     /**
-     *
+     * Tests the writeToImage() method of the ImageWriter class.
+     * The test generates an image with alternating red and yellow pixels.
      */
     @Test
     void writeToImage() {
