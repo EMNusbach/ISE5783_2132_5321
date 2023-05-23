@@ -1,81 +1,72 @@
 package geometries;
-import primitives.*;
 
-import static primitives.Util.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
+import java.util.Objects;
 /**
-
- The Cylinder class represents a three-dimensional cylinder object
- which extends the Tube class.
+ * this a class represent a final Cylinder by radius, ray and height
  */
 public class Cylinder extends Tube {
-
-    //** Height of the Cylinder*/
-    private final double height;
+    private double height;
 
     /**
-     Returns the height of the Cylinder.
-     @return the height of the Cylinder
+     * constructor
+     * @param height height of cylinder
      */
-    public double getHeight() {
-        return height;
-    }
-
-    /**
-     Constructs a new Cylinder object with the specified radius,
-     axisRay, and height values.
-     @param radius the radius of the Cylinder
-     @param axisRay the axisRay of the Cylinder
-     @param height the height of the Cylinder
-     */
-    public Cylinder(double radius, Ray axisRay, double height) {
-        super(radius, axisRay);
+    public Cylinder(int r, Ray ray, double height) {
+        super(r, ray);
         this.height = height;
     }
 
-    @Override
     /**
-     * @author: Maayan
-     Returns the normal Vector of a point on the Cylinder surface.
-     @param point the point to find the normal Vector for
-     @return the normal Vector of the point on the Cylinder surface
+     * Returns normal to point
+     * @param point
+     * @return normal
      */
-    /**
-     * Computes the normal vector to this cylinder at the given point.
-     *
-     * @param p The point on the surface of the cylinder.
-     * @return The normal vector to the cylinder at the given point.
-     */
-    public Vector getNormal(Point p) {
-        // Get the starting point of the axis ray and the direction vector of the axis ray.
+    public Vector getNormal(Point point) {
         Point p0 = axisRay.getP0();
-        Vector v = axisRay.getDir();
+        Vector N = axisRay.getDir();
 
-        // If the given point is the same as the starting point of the axis ray, return the direction vector of the axis ray.
-        if (p.equals(p0))
-            return v;
+        if(point.equals(p0)) return N.scale(-1);
+        Vector p0_p = point.subtract(p0);
+        // find the vector on the lower base
+        if(p0_p.dotProduct(N) == 0){ // the vectors is orthogonal to each other
+            return N.scale(-1);
+        }
 
-        // Compute the projection of the vector from the starting point of the axis ray to the given point onto the axis ray.
-        Vector P_P0 = p.subtract(p0);
-
-        // Compute the distance from the starting point of the axis ray to the intersection point
-        // between the axis ray and the line perpendicular to the cylinder passing through the given point.
-        double t = alignZero(P_P0.dotProduct(v));
-
-
-       // in case the given point is on either of the upper or the lower bases of the cylinder.
-        // returns the normal to one of the bases of the cylinder
-        if (t == 0 || isZero(height - t))
-            return v;
-
-
-        //computes the point that is on the axis ray parallel to the point p
-        Point o = p0.add(v.scale(t));
-
-        // returns the normal that is orthogonal to the side of the cylinder
-        return p.subtract(o).normalize();
+        // find the vector on the upper base
+        Vector vN = N.scale(N.dotProduct(p0_p));
+        if(p0_p.equals(vN)){
+            return N;
+        }
+        else {
+            Vector p0_p_vN = p0_p.subtract(vN);
+            return p0_p_vN.length() == radius ? p0_p_vN.normalize() : N;
+        }
     }
 
+    /**
+     * equals
+     * @param o the Object
+     * @return boolean value
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cylinder cylinder = (Cylinder) o;
+        return Double.compare(cylinder.height, height) == 0 && super.equals(o);
+    }
 
-
+    /**
+     * toString
+     * @return string
+     */
+    @Override
+    public String toString() {
+        return  "Cylinder: " + super.toString() +
+                "\nheight: " + height;
+    }
 }

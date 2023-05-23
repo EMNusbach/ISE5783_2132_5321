@@ -1,70 +1,78 @@
 package geometries;
-
-import primitives.Ray;
-import primitives.Point;
-import primitives.Vector;
+import primitives.*;
+import java.util.List;
+import static primitives.Util.*;
 
 /**
- * Tube class is a polygon represented by a radius and a ray
+ * this class represent an infinite Tube by radius and ray
  */
-public class Tube extends RadialGeometry {
+public class Tube extends Geometry{
+    protected Ray axisRay;
+    protected double radius;
 
     /**
-     * The axis ray of the Tube
+     * constructor
+     * @param r radius of tube
+     * @param ray ray of tube
      */
-    protected final Ray axisRay;
-
+    public Tube(int r, Ray ray) {
+        if(r == 0) throw  new IllegalArgumentException("Invalid radius");
+        axisRay = ray;
+        radius = r;
+    }
+    //region getters
     /**
-     * getting the axis ray of the Tube
-     *
-     * @return axisRay
+     *get ray ot tube
+     * @return ray
      */
     public Ray getAxisRay() {
         return axisRay;
     }
-    
 
     /**
-     * Constructor to initialize Tube based object with the same values of Tube
-     *
-     * @param radius  of the Tube
-     * @param axisRay of the Tube
+     *get radius ot tube
+     * @return radius
      */
-    public Tube(double radius, Ray axisRay) {
-        super(radius);
-        this.axisRay = axisRay;
+    public double getRadius() {
+        return radius;
     }
 
+    /**
+     * Returns normal to point
+     * @param p point
+     * @return normal
+     */
     @Override
     public Vector getNormal(Point p) {
+
         Point p0 = axisRay.getP0();
         Vector v = axisRay.getDir();
 
-        /**
-         * todo
-         */
-        Vector p_p0 = p.subtract(p0);
+        Vector p0_p = p.subtract(p0);
+        double t = alignZero(p0_p.dotProduct(v));
 
-        // if vector p_p0 is orthogonal to vector v then t is 0;
-        if (p_p0.dotProduct(v) == 0)
-            return p_p0.normalize();
+        if(isZero(t)) return p0_p.normalize();
 
-        /**
-        * todo
-        */
+        Point o = p0.add((v.scale(t)));
+        Vector o_p = p.subtract(o);
+        return o_p.normalize();
+    }
+    //endregion
 
-        double t = v.dotProduct(p_p0);
-
-        /**
-         * todo
-         */
-
-        Point o = p0.add(v.scale(t));
-
-        return p.subtract(o).normalize();
-
-
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        return null;
+    }
+    /**
+     * toString
+     * @return string
+     */
+    @Override
+    public String toString() {
+        return "Tube{" +
+                "axisRay=" + axisRay +
+                ", radius=" + radius +
+                '}';
     }
 
 }
-
