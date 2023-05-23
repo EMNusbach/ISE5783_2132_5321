@@ -7,6 +7,8 @@ import primitives.Double3;
  * this class represent an ambient light
  */
 public class AmbientLight extends Light{
+    public static final AmbientLight NONE =  new AmbientLight(Color.BLACK,Double3.ZERO);
+
     /**
      * Constructor for AmbientLight
      * @param Ia Ia is the presentation of the intensity of the light in the pong model

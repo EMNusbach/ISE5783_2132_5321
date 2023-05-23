@@ -58,7 +58,7 @@ public class RayTracerBasic extends RayTracerBase {
             return color;
         Material material = intersection.geometry.getMaterial();
 
-        for (LightSource lightSource : scene.lighting) { //sum of all effects of all lights on scene
+        for (LightSource lightSource : scene.lights ){ //sum of all effects of all lights on scene
             Vector l = lightSource.getL(intersection.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // sign(nl) == sing(nv)

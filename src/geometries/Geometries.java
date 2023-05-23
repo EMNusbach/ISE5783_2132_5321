@@ -54,6 +54,7 @@ public class Geometries extends Intersectable{
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         List<GeoPoint> result = null;
         for(var item : intersectables){
+            // goes over the shapes in the list and find their intersections
             List<GeoPoint>  itemPoints = item.findGeoIntersectionsHelper(ray);
             if(itemPoints != null){
                 if(result == null){

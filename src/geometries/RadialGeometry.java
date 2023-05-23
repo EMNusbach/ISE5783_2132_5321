@@ -25,9 +25,9 @@ public abstract class RadialGeometry extends Geometry {
         return radius;
     }
 
-    @Override
-    public List<Point> findIntersections(Ray ray){
-        return null;
-    }
+//    @Override
+//    public List<Point> findIntersections(Ray ray){
+//        return null;
+//    }
 }
 

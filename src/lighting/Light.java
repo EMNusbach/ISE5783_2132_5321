@@ -12,7 +12,7 @@ abstract class Light {
      * constructor of light
      * @param intensity
      */
-    public Light(Color intensity) {
+    protected Light(Color intensity) {
         this.intensity = intensity;
     }
 
