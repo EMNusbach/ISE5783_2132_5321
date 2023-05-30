@@ -7,7 +7,8 @@ import primitives.Vector;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * A class for testing the Triangle class.
@@ -42,12 +43,12 @@ class TriangleTests {
         // ============ Equivalence Partitions Tests ==============
         //TC01: Ray's line out of triangle
         assertNull(triangle.findIntersections(new Ray(new Point(-5, 1, 0)
-                , new Vector(1, 2, 0)))
+                        , new Vector(1, 2, 0)))
                 , "Ray's line out of triangle");
 
         //TC02: Ray's line inside triangle
         Triangle triangle2 = new Triangle(new Point(0, 0, 3), new Point(-2, 0, 0), new Point(0, 0, 0));
-        assertEquals(List.of(new Point(-1,0,1)),triangle2.findIntersections(new Ray(new Point(-1, -3, 0)
+        assertEquals(List.of(new Point(-1, 0, 1)), triangle2.findIntersections(new Ray(new Point(-1, -3, 0)
                         , new Vector(0, 3, 1)))
                 , "Ray's line inside triangle");
 
@@ -66,9 +67,6 @@ class TriangleTests {
         assertNull(triangle.findIntersections(new Ray(new Point(-5, 1, 0)
                         , new Vector(1, 2, 0)))
                 , "Ray's line on the continuation of a side of the triangle");
-
-
-
 
 
     }

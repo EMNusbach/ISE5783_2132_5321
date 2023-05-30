@@ -6,7 +6,7 @@ import primitives.Vector;
 
 import java.util.List;
 
-import static primitives.Util.*;
+import static primitives.Util.alignZero;
 
 /**
  * sphere class is a geometric shape represented by a point and a radius
@@ -20,6 +20,7 @@ public class Sphere extends RadialGeometry {
 
     /**
      * Constructor to initialize Sphere based object with the same Sphere values
+     *
      * @param radius the radius of the sphere
      * @param center the center of the sphere
      */
@@ -30,6 +31,7 @@ public class Sphere extends RadialGeometry {
 
     /**
      * getting the center of the sphere
+     *
      * @return the center of sphere
      */
     public Point getCenter() {
@@ -89,7 +91,7 @@ public class Sphere extends RadialGeometry {
 
         // p0 = center , returns 1 point
         if (ray.getP0().equals(center))
-            return List.of(new GeoPoint(this,center.add(ray.getDir().scale(radius))));
+            return List.of(new GeoPoint(this, center.add(ray.getDir().scale(radius))));
 
         Vector u = center.subtract(ray.getP0());
         double tm = alignZero(ray.getDir().dotProduct(u));
@@ -110,17 +112,17 @@ public class Sphere extends RadialGeometry {
             //  Point p1 = ray.getP0().add(ray.getDir().scale(t1));
             //Point p2 = ray.getP0().add(ray.getDir().scale(t2));
 
-            return List.of(new GeoPoint(this,ray.getPoint(t1)),new GeoPoint(this, ray.getPoint(t2)));
+            return List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)));
         }
 
         if (t1 > 0) {
             //  Point p1 = ray.getP0().add(ray.getDir().scale(t1));
-            return List.of(new GeoPoint(this,ray.getPoint(t1)));
+            return List.of(new GeoPoint(this, ray.getPoint(t1)));
         }
 
         if (t2 > 0) {
             // Point p2 = ray.getP0().add(ray.getDir().scale(t2));
-            return List.of(new GeoPoint(this,ray.getPoint(t2)));
+            return List.of(new GeoPoint(this, ray.getPoint(t2)));
         }
         return null;
     }

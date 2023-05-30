@@ -14,9 +14,10 @@ public class Color {
      * Black color = (0,0,0)
      */
     public static final Color BLACK = new Color();
-    public static final Color BLUE = new Color(0,64,128);
-    public static final Color YELLOW = new Color(255,255,0);
-    public static final Color RED = new Color(255,0,0);;
+    public static final Color BLUE = new Color(0, 64, 128);
+    public static final Color YELLOW = new Color(255, 255, 0);
+    public static final Color RED = new Color(255, 0, 0);
+    ;
     /**
      * The internal fields tx`o maintain RGB components as double numbers from 0 to
      * whatever...

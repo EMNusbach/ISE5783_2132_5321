@@ -1,22 +1,28 @@
 package renderer;
 
-import static java.awt.Color.*;
-
-import org.junit.jupiter.api.Test;
-
 import geometries.Sphere;
 import geometries.Triangle;
 import lighting.AmbientLight;
-import primitives.*;
-import renderer.*;
+import org.junit.jupiter.api.Test;
+import primitives.Color;
+import primitives.Double3;
+import primitives.Point;
+import primitives.Vector;
 import scene.Scene;
 
-/** Test rendering a basic image
- * @author Dan */
+import static java.awt.Color.*;
+
+/**
+ * Test rendering a basic image
+ *
+ * @author Dan
+ */
 public class RenderTests {
 
-    /** Produce a scene with basic 3D model and render it into a png image with a
-     * grid */
+    /**
+     * Produce a scene with basic 3D model and render it into a png image with a
+     * grid
+     */
     @Test
     public void basicRenderTwoColorTest() {
         Scene scene = new Scene.SceneBuilder("Test scene")//
@@ -45,8 +51,11 @@ public class RenderTests {
     }
 
     // For stage 6 - please disregard in stage 5
-    /** Produce a scene with basic 3D model - including individual lights of the
-     * bodies and render it into a png image with a grid */
+
+    /**
+     * Produce a scene with basic 3D model - including individual lights of the
+     * bodies and render it into a png image with a grid
+     */
     @Test
     public void basicRenderMultiColorTest() {
         Scene scene = new Scene.SceneBuilder("Test scene")//
@@ -76,10 +85,12 @@ public class RenderTests {
         camera.writeToImage();
     }
 
-    /** Test for XML based scene - for bonus */
+    /**
+     * Test for XML based scene - for bonus
+     */
     @Test
     public void basicRenderXml() {
-        Scene  scene  = new Scene.SceneBuilder("XML Test scene").build();
+        Scene scene = new Scene.SceneBuilder("XML Test scene").build();
         // enter XML file name and parse from XML file into scene object
         // using the code you added in appropriate packages
         // ...

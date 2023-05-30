@@ -159,6 +159,7 @@ class VectorTests {
      * Test method for {@link primitives.Vector#length()}.
      * Tests the length() method of the Vector class.
      * Creates a Vector v and asserts that its length is equal to 5.0 with a delta of 1.0E-5.
+     *
      * @see Vector#length()
      */
     @Test

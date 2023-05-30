@@ -1,30 +1,44 @@
 package primitives;
+
 import geometries.Intersectable.GeoPoint;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * this class represent a ray by starting point and direction
  */
 public class Ray {
+    private static final double DELTA = 0.1d;
     private Point p0;
     private Vector dir;
 
     /**
      * constructor ray
+     *
      * @param p0-Vector's starting point
-     * @param dir-The direction of the vector
-     * Normalize the vector in a state that is not normalized
+     * @param dir-The     direction of the vector
+     *                    Normalize the vector in a state that is not normalized
      */
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         this.dir = dir.normalize();
 
     }
+    public Ray(Point p, Vector dir, Vector n) {
+        this.dir = dir.normalize();
+        double nv = n.dotProduct(this.dir);
+
+        Vector delta = n.scale(DELTA);
+
+        if (nv < 0) {
+            delta = delta.scale(-1);
+        }
+        this.p0 = p.add(delta);
+    }
 
     /**
      * geter of point
+     *
      * @return p0-Vector's starting point
      */
     public Point getP0() {
@@ -33,6 +47,7 @@ public class Ray {
 
     /**
      * geter of vector
+     *
      * @return dir-The direction of the vector
      */
     public Vector getDir() {
@@ -42,29 +57,31 @@ public class Ray {
     /**
      * p = p0 + tv
      * v is the direction of the ray, p0 is the stating point of the ray
+     *
      * @param t scalar
      * @return point on the ray
      */
-    public Point getPoint(double t){
+    public Point getPoint(double t) {
         return p0.add(dir.scale(t));
     }
 
     /**
      * find the closest point to the starting point of the ray in list of GeoPoints
+     *
      * @param geoPoints list of GeoPoints
      * @return the closest GeoPoint
      */
-    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPoints){
-        if(geoPoints == null){
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPoints) {
+        if (geoPoints == null) {
             return null;
         }
 
         GeoPoint closesGeoPoint = null;
         double minDistance = Double.MAX_VALUE;
 
-        for(var geoPoint : geoPoints){
+        for (var geoPoint : geoPoints) {
             double temp = geoPoint.point.distance(p0);
-            if(minDistance > temp){
+            if (minDistance > temp) {
                 closesGeoPoint = geoPoint;
                 minDistance = temp;
             }
@@ -75,6 +92,7 @@ public class Ray {
 
     /**
      * equals-Compares two rays
+     *
      * @param o-The object for comparison
      * @return Boolean value Whether the objects are equal or not
      */
@@ -87,15 +105,18 @@ public class Ray {
     }
 
     /**
-     *toString
+     * toString
+     *
      * @return Threading the values
      */
     @Override
     public String toString() {
-        return p0.toString()+ dir.toString();
+        return p0.toString() + dir.toString();
     }
+
     /**
      * find the closest point to the starting point of the ray in list of Points
+     *
      * @param points list of Points
      * @return the closest Point
      */

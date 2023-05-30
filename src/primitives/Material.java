@@ -5,25 +5,33 @@ package primitives;
  * geometries objects can have the same material.
  */
 public class Material {
-    public Double3 kD = new Double3(0,0,0), kS = new Double3(0,0,0);
+    public Double3 kD = new Double3(0, 0, 0), kS = new Double3(0, 0, 0);
     public int nShininess = 0;
 
     //region Getters
+
     /**
      * getting of nShininess
+     *
      * @return nShininess
      */
-    public int getnShininess() {return nShininess;}
+    public int getnShininess() {
+        return nShininess;
+    }
+
+    public Material setnShininess(int nShininess) {
+        this.nShininess = nShininess;
+        return this;
+    }
+
     /**
      * getting of kD
+     *
      * @return kD
      */
-    public Double3 getkD() {return kD;}
-    /**
-     * getting of kS
-     * @return kS
-     */
-    public Double3 getkS() {return kS;}
+    public Double3 getkD() {
+        return kD;
+    }
     //endregion
 
     //region Setters
@@ -33,23 +41,27 @@ public class Material {
         return this;
     }
 
-    public Material setkS(Double3 kS) {
-        this.kS = kS;
-        return this;
-    }
-
     public Material setkD(Double kD) {
         this.kD = new Double3(kD);
         return this;
     }
 
-    public Material setkS(Double kS) {
-        this.kS = new Double3(kS);
+    /**
+     * getting of kS
+     *
+     * @return kS
+     */
+    public Double3 getkS() {
+        return kS;
+    }
+
+    public Material setkS(Double3 kS) {
+        this.kS = kS;
         return this;
     }
 
-    public Material setnShininess(int nShininess) {
-        this.nShininess = nShininess;
+    public Material setkS(Double kS) {
+        this.kS = new Double3(kS);
         return this;
     }
     //endregion

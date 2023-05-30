@@ -1,7 +1,8 @@
 package scene;
 
-import lighting.*;
 import geometries.Geometries;
+import lighting.AmbientLight;
+import lighting.LightSource;
 import primitives.Color;
 
 import java.util.LinkedList;
@@ -13,15 +14,11 @@ import java.util.List;
  * we are using the builder pattern design
  */
 public class Scene {
-    private final String name;
     public final Color background;
     public final AmbientLight ambientLight;
     public final Geometries geometries;
     public final List<LightSource> lights;
-    public String getName() {
-        return name;
-    }
-
+    private final String name;
 
     /**
      * Constructor for SceneBuilder
@@ -38,6 +35,9 @@ public class Scene {
         lights = builder.lights;
     }
 
+    public String getName() {
+        return name;
+    }
 
     public static class SceneBuilder {
         private final String name;
@@ -50,6 +50,10 @@ public class Scene {
         // ***************** Setters ********************** //
         // ** all setters implements the Builder Design Pattern **//
 
+
+        public SceneBuilder(String name) {
+            this.name = name;
+        }
 
         /**
          * set the Background color for the scene
@@ -75,10 +79,6 @@ public class Scene {
         public SceneBuilder setLights(List<LightSource> lights) {
             this.lights = lights;
             return this;
-        }
-
-        public SceneBuilder(String name) {
-            this.name = name;
         }
 
         public Scene build() {

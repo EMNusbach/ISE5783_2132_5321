@@ -1,18 +1,19 @@
 package geometries;
 
-import primitives.Point;
 import primitives.Ray;
 
 import java.util.LinkedList;
 import java.util.List;
+
 /**
  * A class that represents all kinds of geometries <br/>
  * that have in common that they implement the interface
  * of finding points of intersection with a ray. <br/>
  * using the composite design pattern.
+ *
  * @author efrat and rivki
  */
-public class Geometries extends Intersectable{
+public class Geometries extends Intersectable {
     private List<Intersectable> intersectables;
 
     /**
@@ -26,6 +27,7 @@ public class Geometries extends Intersectable{
 
     /**
      * Constructor for Geometries
+     *
      * @param intersectables one or more interfaces to add to the geometries list
      */
     public Geometries(Intersectable... intersectables) {
@@ -35,10 +37,11 @@ public class Geometries extends Intersectable{
 
     /**
      * Add interfaces to the list of the geometries
+     *
      * @param intersectables one or more interfaces to add to the geometries list
      */
-    public void add(Intersectable... intersectables){
-        for(var item : intersectables){
+    public void add(Intersectable... intersectables) {
+        for (var item : intersectables) {
             this.intersectables.add(item);
         }
     }
@@ -53,11 +56,11 @@ public class Geometries extends Intersectable{
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         List<GeoPoint> result = null;
-        for(var item : intersectables){
+        for (var item : intersectables) {
             // goes over the shapes in the list and find their intersections
-            List<GeoPoint>  itemPoints = item.findGeoIntersectionsHelper(ray);
-            if(itemPoints != null){
-                if(result == null){
+            List<GeoPoint> itemPoints = item.findGeoIntersectionsHelper(ray);
+            if (itemPoints != null) {
+                if (result == null) {
                     result = new LinkedList();
                 }
                 result.addAll(itemPoints);
