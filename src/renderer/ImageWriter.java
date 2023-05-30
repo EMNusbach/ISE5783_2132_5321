@@ -1,15 +1,13 @@
 package renderer;
 
+import primitives.Color;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import primitives.Color;
-
-import javax.imageio.*;
 
 /**
  * Image writer class combines accumulation of pixel color matrix and finally
@@ -20,11 +18,9 @@ import javax.imageio.*;
  * @author Dan
  */
 public class ImageWriter {
+    private static final String FOLDER_PATH = System.getProperty("user.dir") + "/images";
     private int nX;
     private int nY;
-
-    private static final String FOLDER_PATH = System.getProperty("user.dir") + "/images";
-
     private BufferedImage image;
     private String imageName;
 

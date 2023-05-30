@@ -1,27 +1,27 @@
 package geometries;
 
 import org.junit.jupiter.api.Test;
-import primitives.*;
-
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PlaneTests {
 
 
-
     /**
      * Test method for {@link geometries.Plane#getNormal(Point)}.
-     *      Tests the getNormal method of the Plane class.
-     *      The test creates a Vector object with the square root of 1/3 and uses it
-     *      to instantiate a Plane object. The getNormal method of the Plane object
-     *      is then called with a Point object as argument, and the resulting Vector
-     *      is compared with the expected value. The test fails if the two Vector
-     *      objects are not equal.
+     * Tests the getNormal method of the Plane class.
+     * The test creates a Vector object with the square root of 1/3 and uses it
+     * to instantiate a Plane object. The getNormal method of the Plane object
+     * is then called with a Point object as argument, and the resulting Vector
+     * is compared with the expected value. The test fails if the two Vector
+     * objects are not equal.
      *
-     *      @throws AssertionError if the plane's normal vector is not correct.
+     * @throws AssertionError if the plane's normal vector is not correct.
      */
     @Test
     void testGetNormal() {
@@ -38,13 +38,13 @@ class PlaneTests {
 
     @Test
     void testFindIntsersections() {
-        Plane plane = new Plane(new Point (0, 0, 1), new Point (0, 2, 0), new Point (1, 0, 0));
+        Plane plane = new Plane(new Point(0, 0, 1), new Point(0, 2, 0), new Point(1, 0, 0));
 
         // ============ Equivalence Partitions Tests ==============
         // The Ray's here ar not orthogonal and not parallels to the plane
         // TC01: Ray intersect the plane (1 point)
-        Ray ray = new Ray(new Point(0,-2,0), new Vector(1, 4,-1));
-        assertEquals(List.of(new Point(1,2,-1)), plane.findIntersections(ray));
+        Ray ray = new Ray(new Point(0, -2, 0), new Vector(1, 4, -1));
+        assertEquals(List.of(new Point(1, 2, -1)), plane.findIntersections(ray));
         //
     }
 }

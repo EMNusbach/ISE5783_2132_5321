@@ -4,7 +4,6 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.Objects;
 /**
  * this a class represent a final Cylinder by radius, ray and height
  */
@@ -13,6 +12,7 @@ public class Cylinder extends Tube {
 
     /**
      * constructor
+     *
      * @param height height of cylinder
      */
     public Cylinder(int r, Ray ray, double height) {
@@ -22,6 +22,7 @@ public class Cylinder extends Tube {
 
     /**
      * Returns normal to point
+     *
      * @param point
      * @return normal
      */
@@ -29,19 +30,18 @@ public class Cylinder extends Tube {
         Point p0 = axisRay.getP0();
         Vector N = axisRay.getDir();
 
-        if(point.equals(p0)) return N.scale(-1);
+        if (point.equals(p0)) return N.scale(-1);
         Vector p0_p = point.subtract(p0);
         // find the vector on the lower base
-        if(p0_p.dotProduct(N) == 0){ // the vectors is orthogonal to each other
+        if (p0_p.dotProduct(N) == 0) { // the vectors is orthogonal to each other
             return N.scale(-1);
         }
 
         // find the vector on the upper base
         Vector vN = N.scale(N.dotProduct(p0_p));
-        if(p0_p.equals(vN)){
+        if (p0_p.equals(vN)) {
             return N;
-        }
-        else {
+        } else {
             Vector p0_p_vN = p0_p.subtract(vN);
             return p0_p_vN.length() == radius ? p0_p_vN.normalize() : N;
         }
@@ -49,6 +49,7 @@ public class Cylinder extends Tube {
 
     /**
      * equals
+     *
      * @param o the Object
      * @return boolean value
      */
@@ -62,11 +63,12 @@ public class Cylinder extends Tube {
 
     /**
      * toString
+     *
      * @return string
      */
     @Override
     public String toString() {
-        return  "Cylinder: " + super.toString() +
+        return "Cylinder: " + super.toString() +
                 "\nheight: " + height;
     }
 }

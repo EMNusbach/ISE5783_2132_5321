@@ -1,74 +1,89 @@
 package scene;
 
-import lighting.*;
 import geometries.Geometries;
+import lighting.AmbientLight;
+import lighting.LightSource;
 import primitives.Color;
 
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
-     * Graphic scene in our 3D model
-     * Scene contains geometric shapes and light sources
-     * we are using the builder pattern design
+ * Graphic scene in our 3D model
+ * Scene contains geometric shapes and light sources
+ * we are using the builder pattern design
+ */
+public class Scene {
+    public final Color background;
+    public final AmbientLight ambientLight;
+    public final Geometries geometries;
+    public final List<LightSource> lights;
+    private final String name;
+
+    /**
+     * Constructor for SceneBuilder
+     * to get the Scene instance, you must call the methods
+     *
+     * @param builder the instance  of the SceneBuilder
      */
-    public class Scene {
-        public String name = null;
-        public Color background = Color.BLACK;
-        public AmbientLight ambientLight = new AmbientLight();
-        public Geometries geometries= new Geometries();
-        public List<LightSource> lighting = new LinkedList<>();
-        /**
-         * Constructor for SceneBuilder
-         * to get the Scene instance, you must call the methods
-         * @param name the name of the scene
-         */
-        public Scene(String name) {
-            this.name = name;
-        }
+    public Scene(SceneBuilder builder) {
+
+        name = builder.name;
+        background = builder.background;
+        ambientLight = builder.ambientLight;
+        geometries = builder.geometries;
+        lights = builder.lights;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public static class SceneBuilder {
+        private final String name;
+        private Color background = Color.BLACK;
+        private AmbientLight ambientLight = AmbientLight.NONE;
+        private Geometries geometries = new Geometries();
+        private List<LightSource> lights = new LinkedList<>();
 
         //region Setters
         // ***************** Setters ********************** //
         // ** all setters implements the Builder Design Pattern **//
+
+
+        public SceneBuilder(String name) {
+            this.name = name;
+        }
 
         /**
          * set the Background color for the scene
          *
          * @return the scene object
          */
-        public scene.Scene setBackground(Color background) {
+
+        public SceneBuilder setBackground(Color background) {
             this.background = background;
             return this;
         }
 
-        /**
-         * set the Ambient Light for the scene
-         *
-         * @return the scene object
-         */
-        public scene.Scene setAmbientLight(AmbientLight ambientLight) {
+        public SceneBuilder setAmbientLight(AmbientLight ambientLight) {
             this.ambientLight = ambientLight;
             return this;
         }
 
-        /**
-         * set the geometry model - a list of geometries
-         *
-         * @return the scene object
-         */
-        public scene.Scene setGeometries(Geometries geometries) {
+        public SceneBuilder setGeometries(Geometries geometries) {
             this.geometries = geometries;
             return this;
         }
 
-        /**
-         * set the lightSource - a list of light sources
-         *
-         * @return the scene object
-         */
-        public scene.Scene setLighting(List<LightSource> lighting) {
-            this.lighting = lighting;
+        public SceneBuilder setLights(List<LightSource> lights) {
+            this.lights = lights;
             return this;
         }
-        //endregion
+
+        public Scene build() {
+            return new Scene(this);
+        }
     }
+    //endregion
+}

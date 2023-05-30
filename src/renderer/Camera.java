@@ -1,10 +1,14 @@
 package renderer;
 
-import primitives.*;
+import primitives.Color;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.MissingResourceException;
 
-import static primitives.Util.*;
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * this class represent camera by location <br/>
@@ -44,6 +48,7 @@ public class Camera {
     }
 
     //region Getters/Setters
+
     /**
      * get of p0
      *
@@ -152,6 +157,7 @@ public class Camera {
         centerPoint = p0.add(vTo.scale(this.distance));
         return this;
     }
+
     /**
      * set the rayTracer ray from the camera to the view plane
      *
@@ -160,7 +166,7 @@ public class Camera {
      */
     public Camera setRayTracer(RayTracerBase rayTracer) {
         this.rayTracer = rayTracer;
-        return  this;
+        return this;
     }
 
     /**
@@ -188,7 +194,7 @@ public class Camera {
             for (int j = 0; j < imageWriter.getNx(); j++) {
                 // Pixel coloring by ray
                 Ray ray = constructRay(imageWriter.getNx(), imageWriter.getNy(), j, i);
-                imageWriter.writePixel(j,i, rayTracer.TraceRay(ray));
+                imageWriter.writePixel(j, i, rayTracer.TraceRay(ray));
 
             }
         }
@@ -196,14 +202,15 @@ public class Camera {
     }
 
     /**
-     *Grid printing
+     * Grid printing
+     *
      * @param interval The space between pixels
-     * @param color color of grid
+     * @param color    color of grid
      */
     public void printGrid(int interval, Color color) {
         if (this.imageWriter == null)
             throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
-        imageWriter.printGrid(interval,color);
+        imageWriter.printGrid(interval, color);
     }
 
     /**
@@ -262,9 +269,11 @@ public class Camera {
     public void writeToImage() {
         imageWriter.writeToImage();
     }
+
     /**
      * moving the camera from her location
-     * @param newPosition the new position of the camera
+     *
+     * @param newPosition    the new position of the camera
      * @param newPointOfView new point of view of the camera
      * @return the new camera from the new position to the new point of view
      */
@@ -281,9 +290,11 @@ public class Camera {
 
         return rotateCamera(theta, k);
     }
+
     /**
      * Rotate the camera by rotating the vectors of the camera directions <br/>
      * According the Rodrigues' rotation formula
+     *
      * @param theta angle theta according to the right hand rule in degrees
      * @return this camera after the rotating
      */
@@ -294,8 +305,9 @@ public class Camera {
     /**
      * Rotate the camera by rotating the vectors of the camera directions <br/>
      * According the Rodrigues' rotation formula
+     *
      * @param theta angle theta according to the right hand rule in degrees
-     * @param k axis vector for the rotation
+     * @param k     axis vector for the rotation
      * @return this camera after the rotating
      */
     private Camera rotateCamera(double theta, Vector k) {

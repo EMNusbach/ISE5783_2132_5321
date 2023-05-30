@@ -1,28 +1,37 @@
 package geometries;
-import primitives.*;
+
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
+
 import java.util.List;
-import static primitives.Util.*;
+
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * this class represent an infinite Tube by radius and ray
  */
-public class Tube extends Geometry{
+public class Tube extends Geometry {
     protected Ray axisRay;
     protected double radius;
 
     /**
      * constructor
-     * @param r radius of tube
+     *
+     * @param r   radius of tube
      * @param ray ray of tube
      */
     public Tube(int r, Ray ray) {
-        if(r == 0) throw  new IllegalArgumentException("Invalid radius");
+        if (r == 0) throw new IllegalArgumentException("Invalid radius");
         axisRay = ray;
         radius = r;
     }
     //region getters
+
     /**
-     *get ray ot tube
+     * get ray ot tube
+     *
      * @return ray
      */
     public Ray getAxisRay() {
@@ -30,7 +39,8 @@ public class Tube extends Geometry{
     }
 
     /**
-     *get radius ot tube
+     * get radius ot tube
+     *
      * @return radius
      */
     public double getRadius() {
@@ -39,6 +49,7 @@ public class Tube extends Geometry{
 
     /**
      * Returns normal to point
+     *
      * @param p point
      * @return normal
      */
@@ -51,7 +62,7 @@ public class Tube extends Geometry{
         Vector p0_p = p.subtract(p0);
         double t = alignZero(p0_p.dotProduct(v));
 
-        if(isZero(t)) return p0_p.normalize();
+        if (isZero(t)) return p0_p.normalize();
 
         Point o = p0.add((v.scale(t)));
         Vector o_p = p.subtract(o);
@@ -63,8 +74,10 @@ public class Tube extends Geometry{
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         return null;
     }
+
     /**
      * toString
+     *
      * @return string
      */
     @Override

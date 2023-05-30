@@ -1,19 +1,21 @@
 package renderer;
 
-import org.junit.jupiter.api.Test;
-import primitives.*;
-
 import geometries.Intersectable;
-import geometries.*;
+import geometries.Plane;
+import geometries.Sphere;
+import geometries.Triangle;
+import org.junit.jupiter.api.Test;
+import primitives.Point;
+import primitives.Vector;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CameraRayIntersectionsIntegrationTest {
+class CameraRayIntersectionsIntegrationsTests {
     /**
      * Integration tests of Camera Ray construction with Ray-Sphere intersections
      */
     @Test
-    public void cameraRaySphereIntegration() {
+    public void cameraRaySpheresIntegration() {
         Camera cam1 = new Camera(
                 Point.ZERO,
                 new Vector(0, 0, -1),
@@ -24,19 +26,19 @@ class CameraRayIntersectionsIntegrationTest {
                 new Vector(0, -1, 0));
 
         // TC01: Small Sphere 2 points
-        assertCountIntersections(cam1, new Sphere(new Point(0, 0, -3),1), 2);
+        assertCountIntersections(cam1, new Sphere(new Point(0, 0, -3), 1), 2);
 
         // TC02: Big Sphere 18 points
-        assertCountIntersections(cam2, new Sphere(new Point(0, 0, -2.5),2.5), 18);
+        assertCountIntersections(cam2, new Sphere(new Point(0, 0, -2.5), 2.5), 18);
 
         // TC03: Medium Sphere 10 points
-        assertCountIntersections(cam2, new Sphere(new Point(0, 0, -2),2), 10);
+        assertCountIntersections(cam2, new Sphere(new Point(0, 0, -2), 2), 10);
 
         // TC04: Inside Sphere 9 points
-        assertCountIntersections(cam2, new Sphere(new Point(0, 0, -1),4), 9);
+        assertCountIntersections(cam2, new Sphere(new Point(0, 0, -1), 4), 9);
 
         // TC05: Beyond Sphere 0 points
-        assertCountIntersections(cam1, new Sphere(new Point(0, 0, 1),0.5), 0);
+        assertCountIntersections(cam1, new Sphere(new Point(0, 0, 1), 0.5), 0);
     }
 
     /**
@@ -75,21 +77,22 @@ class CameraRayIntersectionsIntegrationTest {
 
     /**
      * help function to test intersections with all kind of geometries
-     * @param cam the camera we send rays from
-     * @param geo the geometry
+     *
+     * @param cam      the camera we send rays from
+     * @param geo      the geometry
      * @param expected tha expected number of intersections with the geometry
      */
     private void assertCountIntersections(Camera cam, Intersectable geo, int expected) {
-        cam.setVPSize(3,3).setVPDistance(1);
+        cam.setVPSize(3, 3).setVPDistance(1);
 
         int nX = 3, nY = 3, count = 0;
 
-        for(int i = 0; i < nX; i++){
-            for(int j = 0; j < nY; j++){
+        for (int i = 0; i < nX; i++) {
+            for (int j = 0; j < nY; j++) {
                 var ray = cam.constructRay(nX, nY, j, i); // create ray in the view plane
                 var intersections = geo.findIntersections(ray);
 
-                if(intersections != null){
+                if (intersections != null) {
                     count += intersections.size(); // count the total number of point
                 }
             }

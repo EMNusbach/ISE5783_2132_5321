@@ -3,24 +3,24 @@ package lighting;
 import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
-import static primitives.Util.isZero;
 
 /**
  * this class represent a point light like normal lamp. <br/>
  * with point that represent the position of the lamp and <br/>
  * the intensity of the light that depends on some variables related to the pong model
  */
-public class PointLight extends Light implements LightSource{
+public class PointLight extends Light implements LightSource {
     private Point position;
     private double kC, kL, kQ;
 
     /**
      * ctor for point light object
+     *
      * @param intensity - intensity of point light source
-     * @param position - location of point light object on scene
-     * @param kC - the constant attenuation factor
-     * @param kL - the linear attenuation factor
-     * @param kQ - the square attenuation factor
+     * @param position  - location of point light object on scene
+     * @param kC        - the constant attenuation factor
+     * @param kL        - the linear attenuation factor
+     * @param kQ        - the square attenuation factor
      */
     public PointLight(Color intensity, Point position, double kC, double kL, double kQ) {
         super(intensity);
@@ -33,8 +33,9 @@ public class PointLight extends Light implements LightSource{
     /**
      * Default ctor for point light object
      * attenuation factor get default values - 1,0,0
+     *
      * @param intensity - intensity of point light source
-     * @param position - location of point light object on scene
+     * @param position  - location of point light object on scene
      */
     public PointLight(Color intensity, Point position) {
         super(intensity);
@@ -44,8 +45,10 @@ public class PointLight extends Light implements LightSource{
         this.kQ = 0;
     }
     //region getters
+
     /**
      * get the intensity of the light in relation to the distance from the point
+     *
      * @param p The point where the light strikes
      * @return the color of the point
      */
@@ -53,7 +56,7 @@ public class PointLight extends Light implements LightSource{
     public Color getIntensity(Point p) {
         double dist = p.distance(position);
 
-        if(dist <= 0){
+        if (dist <= 0) {
             return getIntensity();
         }
 
@@ -64,6 +67,7 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * get the the direction of the light to the point where its strikes
+     *
      * @param p The point where the light strikes
      * @return the direction of the light to the point
      */
@@ -72,10 +76,17 @@ public class PointLight extends Light implements LightSource{
         Vector dir = p.subtract(position);
         return dir.normalize();
     }
+
+    @Override
+    public double getDistance(Point point) {
+        return this.position.distance(point);
+    }
     //endregion
     //region Setters
+
     /**
      * set Position of point light
+     *
      * @param position
      * @return point light object
      */
@@ -86,6 +97,7 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * builder pattern set - set the kC parameter - the constant attenuation factor
+     *
      * @param kC - constant attenuation factor
      * @return - point light object
      */
@@ -96,6 +108,7 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * builder pattern set - set the kL parameter - the linear attenuation factor
+     *
      * @param kL - linear attenuation factor
      * @return - point light object
      */
@@ -106,6 +119,7 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * builder pattern set - set the kq parameter - the square attenuation factor
+     *
      * @param kQ - square attenuation factor
      * @return - point light object
      */
