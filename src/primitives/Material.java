@@ -1,11 +1,17 @@
 package primitives;
 
 /**
+ * @Param kT - Attenuation coefficient of transparency
+ * @Param kT - Attenuation coefficient of reflection
+ *
  * this class gives factors of material and the texture of the geometry.
  * geometries objects can have the same material.
  */
 public class Material {
-    public Double3 kD = new Double3(0, 0, 0), kS = new Double3(0, 0, 0);
+    public Double3 kD = Double3.ZERO;
+    public Double3 kS = Double3.ZERO;
+    public Double3 kT = Double3.ZERO;
+    public Double3 kR = Double3.ZERO;
     public int nShininess = 0;
 
     //region Getters
@@ -64,5 +70,34 @@ public class Material {
         this.kS = new Double3(kS);
         return this;
     }
+
+    public Material setkT(Double3 kT) {
+        this.kT = kT;
+        return this;
+    }
+
+    public Material setkT(Double kT) {
+        this.kT = new Double3(kT);
+        return this;
+    }
+
+    public Double3 getkT() {
+        return kT;
+    }
+
+    public Material setkR(Double3 kR) {
+        this.kR = kR;
+        return this;
+    }
+
+    public Material setkR(Double kR) {
+        this.kR = new Double3(kR);
+        return this;
+    }
+
+    public Double3 getkR() {
+        return kR;
+    }
+
     //endregion
 }
