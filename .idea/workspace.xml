@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eee3868d-2277-4911-b9dc-11043c08b6a7" name="Changes" comment="PR07 part 2 - transparency and reflection">
-      <change afterPath="$PROJECT_DIR$/unittests/renderer/ReflectionRefractionTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/refractionShadow.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/refractionShadow.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/refractionTwoSpheres.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/refractionTwoSpheres.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/RayTracerBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/RayTracerBasic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -309,5 +310,16 @@
     <MESSAGE value="tag PR06 updated" />
     <MESSAGE value="PR07 part 2 - transparency and reflection" />
     <option name="LAST_COMMIT_MESSAGE" value="PR07 part 2 - transparency and reflection" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/unittests/renderer/ReflectionRefractionTests.java</url>
+          <line>96</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
