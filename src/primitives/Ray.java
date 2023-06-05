@@ -5,12 +5,14 @@ import geometries.Intersectable.GeoPoint;
 import java.util.List;
 
 /**
+ *  * @Param DELTA - a const parameter for ray-head offset size for shading rays.
  * this class represent a ray by starting point and direction
  */
 public class Ray {
     private static final double DELTA = 0.1d;
     private Point p0;
     private Vector dir;
+
 
     /**
      * constructor ray
