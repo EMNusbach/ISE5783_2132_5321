@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eee3868d-2277-4911-b9dc-11043c08b6a7" name="Changes" comment="PR07 part 2 - transparency and reflection">
-      <change afterPath="$PROJECT_DIR$/images/reflectionTwoSpheresMirrored.png" afterDir="false" />
+    <list default="true" id="eee3868d-2277-4911-b9dc-11043c08b6a7" name="Changes" comment="tag PR07.2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/primitives/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/primitives/Material.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/primitives/Ray.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/primitives/Ray.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/RayTracerBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/RayTracerBasic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +22,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Tehila Benezra &lt;tehila151as@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="PUSH_TAGS">
       <GitPushTagMode>
         <option name="argument" value="--tags" />
@@ -280,7 +281,14 @@
       <option name="project" value="LOCAL‎" />
       <updated>1685936020623</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL‎-00017" summary="tag PR07.2">
+      <created>1685990378474</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL‎-00017" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1685990378474</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -310,7 +318,8 @@
     <MESSAGE value="tag PR06" />
     <MESSAGE value="tag PR06 updated" />
     <MESSAGE value="PR07 part 2 - transparency and reflection" />
-    <option name="LAST_COMMIT_MESSAGE" value="PR07 part 2 - transparency and reflection" />
+    <MESSAGE value="tag PR07.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="tag PR07.2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
