@@ -26,7 +26,7 @@ public class ImageWriter {
 
     private Logger logger = Logger.getLogger("ImageWriter");
 
-    // ***************** Constructors ********************** //
+    /** ***************** Constructors ********************** //
 
     /**
      * Image Writer constructor accepting image name and View Plane parameters,
@@ -43,9 +43,10 @@ public class ImageWriter {
         image = new BufferedImage(nX, nY, BufferedImage.TYPE_INT_RGB);
     }
 
-    // ***************** Getters/Setters ********************** //
+    /** ***************** Getters/Setters ********************** //*/
 
     /**
+     * getNy
      * View Plane Y axis resolution
      *
      * @return the amount of vertical pixels
@@ -91,15 +92,21 @@ public class ImageWriter {
         image.setRGB(xIndex, yIndex, color.getColor().getRGB());
     }
 
+    /**
+     * Prints a grid pattern on the image.
+     *
+     * @param interval The interval between grid lines.
+     * @param color    The color of the grid lines.
+     */
     public void printGrid(int interval, Color color) {
         for (int i = 0; i < nX; i++) {
             for (int j = 0; j < nY; j++) {
-                // _width/interval // _height/interval
                 if (i % interval == 0 || j % interval == 0) {
                     writePixel(i, j, color);
                 }
             }
         }
     }
+
 }
 

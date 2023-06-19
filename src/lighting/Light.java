@@ -20,7 +20,7 @@ abstract class Light {
     /**
      * getter of intensity
      *
-     * @return
+     * @return color
      */
     public Color getIntensity() {
         return intensity;

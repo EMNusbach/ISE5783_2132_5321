@@ -11,9 +11,9 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
- * this class represent camera by location <br/>
- * and directions toward, right and up to the scene that lives in a virtual view plane. <br/>
- * The view plane is represent by height and wight
+ * Represents a camera in a 3D scene with a virtual view plane.
+ * The camera is defined by its location and the directions towards the scene.
+ * The view plane is represented by its height and width.
  */
 public class Camera {
 
@@ -28,17 +28,22 @@ public class Camera {
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
 
+    private int numOfRays = 300;
+    private int adaptiveMaxDepth = 4;
+    private boolean isMultithreading = true;
+    private int numOfThreads = 30;
+
     /**
-     * constructor for camera
+     * Constructs a camera.
      *
-     * @param p0  the location of the camera
-     * @param vTo the direction to the view plane
-     * @param vUp the direction up
-     * @throws IllegalArgumentException if vTo and vUp is not orthogonal
+     * @param p0  The location of the camera.
+     * @param vTo The direction towards the view plane.
+     * @param vUp The upward direction.
+     * @throws IllegalArgumentException if vTo and vUp are not orthogonal.
      */
     public Camera(Point p0, Vector vTo, Vector vUp) {
         if (!isZero(vUp.dotProduct(vTo))) {
-            throw new IllegalArgumentException("The vectors 'up' and and 'to' is not orthogonal");
+            throw new IllegalArgumentException("The vectors 'up' and 'to' are not orthogonal.");
         }
 
         this.p0 = p0;
@@ -50,88 +55,88 @@ public class Camera {
     //region Getters/Setters
 
     /**
-     * get of p0
+     * Returns the location of the camera.
      *
-     * @return point
+     * @return The location point.
      */
     public Point getP0() {
         return p0;
     }
 
     /**
-     * get of vRight
+     * Returns the right vector of the camera.
      *
-     * @return vector
+     * @return The right vector.
      */
     public Vector getvRight() {
         return vRight;
     }
 
     /**
-     * get of vUp
+     * Returns the up vector of the camera.
      *
-     * @return vector
+     * @return The up vector.
      */
     public Vector getvUp() {
         return vUp;
     }
 
     /**
-     * get of vTo
+     * Returns the direction vector towards the view plane.
      *
-     * @return vector
+     * @return The direction vector.
      */
     public Vector getvTo() {
         return vTo;
     }
 
     /**
-     * get of distance
+     * Returns the distance from the camera to the view plane.
      *
-     * @return double
+     * @return The distance value.
      */
     public double getDistance() {
         return distance;
     }
 
     /**
-     * get of width
+     * Returns the width of the view plane.
      *
-     * @return double
+     * @return The width value.
      */
     public double getWidth() {
         return width;
     }
 
     /**
-     * get of height
+     * Returns the height of the view plane.
      *
-     * @return double
+     * @return The height value.
      */
     public double getHeight() {
         return height;
     }
 
     /**
-     * get of centerPoint
+     * Returns the center point of the view plane.
      *
-     * @return point
+     * @return The center point.
      */
     public Point get_centerVPPoint() {
         return centerPoint;
     }
 
     /**
-     * set the view plane size
+     * Sets the size of the view plane.
      *
-     * @param width  the width of the view plane
-     * @param height the height of the view plane
-     * @return this camera (like builder pattern)
-     * @throws IllegalArgumentException if width or height equal to 0
+     * @param width  The width of the view plane.
+     * @param height The height of the view plane.
+     * @return This camera (builder pattern).
+     * @throws IllegalArgumentException if width or height are equal to 0.
      */
     public Camera setVPSize(double width, double height) {
         if (isZero(width) || isZero(height)) {
-            throw new IllegalArgumentException("width or height cannot be zero");
+            throw new IllegalArgumentException("Width or height cannot be zero.");
         }
 
         this.width = width;
@@ -140,29 +145,28 @@ public class Camera {
     }
 
     /**
-     * set the distance from the camera to the view plane
+     * Sets the distance from the camera to the view plane.
      *
-     * @param distance the distance
-     * @return this camera (like builder pattern)
-     * @throws IllegalArgumentException if distance = 0
+     * @param distance The distance value.
+     * @return This camera (builder pattern).
+     * @throws IllegalArgumentException if distance is 0.
      */
     public Camera setVPDistance(double distance) {
         if (isZero(distance)) {
-            throw new IllegalArgumentException("distance cannot be zero");
+            throw new IllegalArgumentException("Distance cannot be zero.");
         }
 
         this.distance = distance;
-        // every time that we chang the distance from the view plane
-        // we will calculate the center point of the view plane aging
+        // Recalculate the center point of the view plane
         centerPoint = p0.add(vTo.scale(this.distance));
         return this;
     }
 
     /**
-     * set the rayTracer ray from the camera to the view plane
+     * Sets the ray tracer for the camera.
      *
-     * @param rayTracer the rayTracer
-     * @return this camera (like builder pattern)
+     * @param rayTracer The ray tracer.
+     * @return This camera (builder pattern).
      */
     public Camera setRayTracer(RayTracerBase rayTracer) {
         this.rayTracer = rayTracer;
@@ -170,18 +174,23 @@ public class Camera {
     }
 
     /**
-     * set the imageWriter  for the Camera
+     * Sets the image writer for the camera.
      *
-     * @return the Camera object
+     * @param imageWriter The image writer.
+     * @return This camera (builder pattern).
      */
     public Camera setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;
         return this;
     }
-//endregion
+
+    //endregion
 
     /**
-     * Checks that all fields are full and creates an image
+     * Checks if all fields are properly set and creates an image.
+     *
+     * @return This camera.
+     * @throws MissingResourceException if any camera data is missing.
      */
     public Camera renderImage() {
         if (p0 == null || vRight == null
@@ -190,67 +199,68 @@ public class Camera {
                 || imageWriter == null || rayTracer == null) {
             throw new MissingResourceException("Missing camera data", Camera.class.getName(), null);
         }
+
         for (int i = 0; i < imageWriter.getNy(); i++) {
             for (int j = 0; j < imageWriter.getNx(); j++) {
                 // Pixel coloring by ray
                 Ray ray = constructRay(imageWriter.getNx(), imageWriter.getNy(), j, i);
                 imageWriter.writePixel(j, i, rayTracer.TraceRay(ray));
-
             }
         }
+
         return this;
     }
 
     /**
-     * Grid printing
+     * Prints a grid on the image.
      *
-     * @param interval The space between pixels
-     * @param color    color of grid
+     * @param interval The interval between pixels.
+     * @param color    The color of the grid.
      */
     public void printGrid(int interval, Color color) {
         if (this.imageWriter == null)
             throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
+
         imageWriter.printGrid(interval, color);
     }
 
     /**
-     * construct ray through a pixel in the view plane
-     * nX and nY create the resolution
+     * Constructs a ray through a pixel on the view plane.
      *
-     * @param nX number of pixels in the width of the view plane
-     * @param nY number of pixels in the height of the view plane
-     * @param j  index row in the view plane
-     * @param i  index column in the view plane
-     * @return ray that goes through the pixel (j, i)  Ray(p0, Vi,j)
+     * @param nX Number of pixels in the width of the view plane.
+     * @param nY Number of pixels in the height of the view plane.
+     * @param j  Row index in the view plane.
+     * @param i  Column index in the view plane.
+     * @return The ray that goes through the pixel (j, i): Ray(p0, Vi,j).
      */
     public Ray constructRay(int nX, int nY, int j, int i) {
-        Point pIJ = getCenterOfPixel(nX, nY, j, i); // center point of the pixel
+        Point pIJ = getCenterOfPixel(nX, nY, j, i); // Center point of the pixel
 
-        //Vi,j = Pi,j - P0, the direction of the ray to the pixel(j, i)
+        // Vi,j = Pi,j - P0, the direction of the ray to the pixel (j, i)
         Vector vIJ = pIJ.subtract(p0);
         return new Ray(p0, vIJ);
     }
 
     /**
-     * get the center point of the pixel in the view plane
+     * Calculates the center point of a pixel on the view plane.
      *
-     * @param nX number of pixels in the width of the view plane
-     * @param nY number of pixels in the height of the view plane
-     * @param j  index row in the view plane
-     * @param i  index column in the view plane
-     * @return the center point of the pixel
+     * @param nX Number of pixels in the width of the view plane.
+     * @param nY Number of pixels in the height of the view plane.
+     * @param j  Row index in the view plane.
+     * @param i  Column index in the view plane.
+     * @return The center point of the pixel.
      */
     private Point getCenterOfPixel(int nX, int nY, int j, int i) {
-        // calculate the ratio of the pixel by the height and by the width of the view plane
-        // the ratio Ry = h/Ny, the height of the pixel
+        // Calculate the ratio of the pixel's height and width
+        // Ry = h / Ny, the height of the pixel
         double rY = alignZero(height / nY);
-        // the ratio Rx = w/Nx, the width of the pixel
+        // Rx = w / Nx, the width of the pixel
         double rX = alignZero(width / nX);
 
-        // Xj = (j - (Nx -1)/2) * Rx
-        double xJ = alignZero((j - ((nX - 1d) / 2d)) * rX);
-        // Yi = -(i - (Ny - 1)/2) * Ry
-        double yI = alignZero(-(i - ((nY - 1d) / 2d)) * rY);
+        // Xj = (j - (Nx - 1) / 2) * Rx
+        double xJ = alignZero((j - ((nX - 1) / 2d)) * rX);
+        // Yi = -(i - (Ny - 1) / 2) * Ry
+        double yI = alignZero(-(i - ((nY - 1) / 2d)) * rY);
 
         Point pIJ = centerPoint;
 
@@ -260,29 +270,30 @@ public class Camera {
         if (!isZero(yI)) {
             pIJ = pIJ.add(vUp.scale(yI));
         }
+
         return pIJ;
     }
 
     /**
-     * Invites the coloring function
+     * Writes the image to the output file.
      */
     public void writeToImage() {
         imageWriter.writeToImage();
     }
 
     /**
-     * moving the camera from her location
+     * Moves the camera to a new position and point of view.
      *
-     * @param newPosition    the new position of the camera
-     * @param newPointOfView new point of view of the camera
-     * @return the new camera from the new position to the new point of view
+     * @param newPosition    The new position of the camera.
+     * @param newPointOfView The new point of view of the camera.
+     * @return The new camera with the updated position and point of view.
      */
     public Camera moveCamera(Point newPosition, Point newPointOfView) {
-        // the new vTo of the the camera
+        // Calculate the new vTo of the camera
         Vector new_vTo = newPointOfView.subtract(newPosition).normalize();
-        // the angle between the new vTo and the old
+        // Calculate the angle between the new vTo and the old one
         double theta = new_vTo.dotProduct(vTo);
-        // axis vector for the rotation
+        // Calculate the axis vector for the rotation
         Vector k = vTo.crossProduct(new_vTo).normalize();
 
         vTo = new_vTo;
@@ -292,23 +303,21 @@ public class Camera {
     }
 
     /**
-     * Rotate the camera by rotating the vectors of the camera directions <br/>
-     * According the Rodrigues' rotation formula
+     * Rotates the camera by rotating the vectors of the camera directions according to Rodrigues' rotation formula.
      *
-     * @param theta angle theta according to the right hand rule in degrees
-     * @return this camera after the rotating
+     * @param theta The angle theta according to the right-hand rule in degrees.
+     * @return This camera after the rotation.
      */
     public Camera rotateCamera(double theta) {
         return rotateCamera(theta, vTo);
     }
 
     /**
-     * Rotate the camera by rotating the vectors of the camera directions <br/>
-     * According the Rodrigues' rotation formula
+     * Rotates the camera by rotating the vectors of the camera directions according to Rodrigues' rotation formula.
      *
-     * @param theta angle theta according to the right hand rule in degrees
-     * @param k     axis vector for the rotation
-     * @return this camera after the rotating
+     * @param theta The angle theta according to the right-hand rule in degrees.
+     * @param k     The axis vector for the rotation.
+     * @return This camera after the rotation.
      */
     private Camera rotateCamera(double theta, Vector k) {
         double radianAngle = Math.toRadians(theta);
@@ -318,6 +327,43 @@ public class Camera {
         vRight.rotateVector(k, cosTheta, sinTheta);
         vUp.rotateVector(k, cosTheta, sinTheta);
 
+        return this;
+    }
+
+
+
+    /**
+     * Sets the multithreading option for rendering the image.
+     *
+     * @param threads The number of threads to use for rendering. Must be 0 or higher.
+     * @return This camera with the multithreading option set.
+     * @throws IllegalArgumentException if the number of threads is less than 0.
+     */
+    public Camera setMultithreading(int threads) {
+        if (threads < 0)
+            throw new IllegalArgumentException("Multithreading parameter must be 0 or higher");
+
+        isMultithreading = true;
+
+        if (threads != 0)
+            numOfThreads = threads;
+        else {
+            int cores = Runtime.getRuntime().availableProcessors() - 2;
+            numOfThreads = cores <= 2 ? 1 : cores;
+        }
+        return this;
+    }
+
+    /**
+     * Sets the rendering improvements for the camera.
+     *
+     * @param multiThreading Indicates whether to use multithreading for rendering.
+     * @param glossy         Indicates whether to use glossy reflections.
+     * @return This camera with the specified rendering improvements.
+     */
+    public Camera setImprovements(boolean multiThreading, boolean glossy) {
+        this.isMultithreading = multiThreading;
+        // this.glossy = glossy; // Uncomment this line if you need to use the glossy option
         return this;
     }
 }

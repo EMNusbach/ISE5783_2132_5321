@@ -3,7 +3,7 @@ package primitives;
 import java.util.Objects;
 
 /**
- * This class will serve all primitive classes based on a vector
+ * Primitives class - This class will serve all primitive classes based on a vector
  */
 public class Vector extends Point {
 

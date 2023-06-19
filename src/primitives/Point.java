@@ -121,7 +121,7 @@ public class Point {
     /**
      * toString
      *
-     * @return
+     * @return string
      */
     @Override
     public String toString() {

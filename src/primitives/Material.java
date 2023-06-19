@@ -28,7 +28,7 @@ public class Material {
      * @param nShininess The shininess coefficient to set.
      * @return The updated Material object.
      */
-    public Material setnShininess(int nShininess) {
+    public Material setnshininess(int nShininess) {
         this.nShininess = nShininess;
         return this;
     }

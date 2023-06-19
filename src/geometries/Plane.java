@@ -31,7 +31,7 @@ public class Plane extends Geometry {
      * @param p2 second points that is on the plane
      * @param p3 third points that is on the plane
      */
-    Plane(Point p1, Point p2, Point p3) {
+    public Plane(Point p1, Point p2, Point p3) {
         this.q0 = p1;
         if (p1.equals(p2) || p1.equals(p3) || p2.equals(p3))
             throw new IllegalArgumentException("Two of the points are identical");

@@ -33,7 +33,7 @@ public abstract class Intersectable {
 
     /**
      * @param ray
-     * @return
+     * @return list of geo intersections
      */
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 
