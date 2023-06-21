@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.Objects;
+
 public class Point {
     /**
      * zero constants of point (0, 0, 0)
@@ -15,7 +17,7 @@ public class Point {
      * @param z value of z
      */
     public Point(double x, double y, double z) {
-        xyz = new Double3(x, y, z);
+        this(new Double3(x, y, z));
     }
 
     /**
@@ -25,15 +27,6 @@ public class Point {
      */
     public Point(Double3 double3) {
         xyz = double3;
-    }
-
-    /**
-     * getter of point
-     *
-     * @return Double3
-     */
-    public Double3 getXyz() {
-        return xyz;
     }
 
     /**
@@ -113,7 +106,7 @@ public class Point {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Point)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Point point = (Point) o;
         return xyz.equals(point.xyz);
     }

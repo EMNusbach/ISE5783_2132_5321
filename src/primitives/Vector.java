@@ -33,13 +33,9 @@ public class Vector extends Point {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Vector vector)) return false;
-        return this.xyz.equals(vector.xyz);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.xyz);
+        if (o == null || getClass() != o.getClass()) return false;
+        Vector vector = (Vector) o;
+        return xyz.equals(vector.xyz);
     }
 
     @Override
@@ -115,27 +111,70 @@ public class Vector extends Point {
         return new Vector(this.xyz.reduce(this.length()));
     }
 
-    /**
-     * rotate the vectors by Rodrigues' rotation formula:
-     * vRot = V * cos(theta) + (K x V) * sin(theta) + K * (K*V) * (1 - cos(theta))
-     * V is this vector
-     *
-     * @param k        the axis vector of rotation
-     * @param cosTheta cos(theta)
-     * @param sinTheta sin(theta)
-     */
-    public void rotateVector(Vector k, double cosTheta, double sinTheta) {
-        Vector vRot;
-        if (cosTheta == 0d) {
-            vRot = k.crossProduct(this).scale(sinTheta);
-        } else {
-            vRot = this.scale(cosTheta);
-            if (sinTheta != 0d) {
-                vRot = vRot.add(k.crossProduct(this).scale(sinTheta));
-            }
-        }
-        xyz = vRot.normalize().xyz;
+    public Vector rotateX(double alpha) {
+        double radianAlpha = alpha * Math.PI / 180;
+
+        double x = getX();
+        double y = getY() * Math.cos(radianAlpha) - getZ() * Math.sin(radianAlpha);
+        double z = getY() * Math.sin(radianAlpha) + getZ() * Math.cos(radianAlpha);
+
+        return new Vector(x, y, z);
     }
+
+
+    /**
+     * Rotates the vector around the y axis
+     *
+     * @param alpha the amount to rotate in degrees
+     * @return the current vector
+     */
+    public Vector rotateY(double alpha) {
+        double radianAlpha = alpha * Math.PI / 180;
+
+        double x = getX() * Math.cos(radianAlpha) + getZ() * Math.sin(radianAlpha);
+        double y = getY();
+        double z = -getX() * Math.sin(radianAlpha) + getZ() * Math.cos(radianAlpha);
+
+        return new Vector(x, y, z);
+    }
+
+
+    /**
+     * Rotates the vector around the z axis
+     *
+     * @param alpha the amount to rotate in degrees
+     * @return the current vector
+     */
+    public Vector rotateZ(double alpha) {
+        double radianAlpha = alpha * Math.PI / 180;
+
+        double x = getX() * Math.cos(radianAlpha) - getY() * Math.sin(radianAlpha);
+        double y = getX() * Math.sin(radianAlpha) + getY() * Math.cos(radianAlpha);
+        double z = getZ();
+
+        return new Vector(x, y, z);
+    }
+//    /**
+//     * rotate the vectors by Rodrigues' rotation formula:
+//     * vRot = V * cos(theta) + (K x V) * sin(theta) + K * (K*V) * (1 - cos(theta))
+//     * V is this vector
+//     *
+//     * @param k        the axis vector of rotation
+//     * @param cosTheta cos(theta)
+//     * @param sinTheta sin(theta)
+//     */
+//    public void rotateVector(Vector k, double cosTheta, double sinTheta) {
+//        Vector vRot;
+//        if (cosTheta == 0d) {
+//            vRot = k.crossProduct(this).scale(sinTheta);
+//        } else {
+//            vRot = this.scale(cosTheta);
+//            if (sinTheta != 0d) {
+//                vRot = vRot.add(k.crossProduct(this).scale(sinTheta));
+//            }
+//        }
+//        xyz = vRot.normalize().xyz;
+//    }
 
 
 }

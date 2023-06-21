@@ -5,8 +5,8 @@ import primitives.Point;
 import primitives.Vector;
 
 /**
- * this class represent a spot light with direction and intensity of the light
- * and also can make a flashlight by focusing the the light
+ * this class represent a spotlight with direction and intensity of the light
+ * and also can make a flashlight by focusing the light
  */
 public class SpotLight extends PointLight {
     private Vector direction;

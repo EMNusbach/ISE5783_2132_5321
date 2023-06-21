@@ -26,8 +26,6 @@ public class ImageWriter {
 
     private Logger logger = Logger.getLogger("ImageWriter");
 
-    /** ***************** Constructors ********************** //
-
     /**
      * Image Writer constructor accepting image name and View Plane parameters,
      *
@@ -43,10 +41,9 @@ public class ImageWriter {
         image = new BufferedImage(nX, nY, BufferedImage.TYPE_INT_RGB);
     }
 
-    /** ***************** Getters/Setters ********************** //*/
+    //region Getters/Setters
 
     /**
-     * getNy
      * View Plane Y axis resolution
      *
      * @return the amount of vertical pixels
@@ -63,8 +60,7 @@ public class ImageWriter {
     public int getNx() {
         return nX;
     }
-
-    // ***************** Operations ******************** //
+//endregion
 
     /**
      * Function writeToImage produces unoptimized png file of the image according to
@@ -84,8 +80,8 @@ public class ImageWriter {
      * The function writePixel writes a color of a specific pixel into pixel color
      * matrix
      *
-     * @param xIndex X-axis index of the pixel
-     * @param yIndex Y-axis index of the pixel
+     * @param xIndex X axis index of the pixel
+     * @param yIndex Y axis index of the pixel
      * @param color  final color of the pixel
      */
     public void writePixel(int xIndex, int yIndex, Color color) {
@@ -93,20 +89,25 @@ public class ImageWriter {
     }
 
     /**
-     * Prints a grid pattern on the image.
+     * Grid printing
      *
-     * @param interval The interval between grid lines.
-     * @param color    The color of the grid lines.
+     * @param interval The space between pixels
+     * @param color    color of grid
      */
     public void printGrid(int interval, Color color) {
-        for (int i = 0; i < nX; i++) {
+        for (int i = 0; i < nX; i += interval) {
             for (int j = 0; j < nY; j++) {
-                if (i % interval == 0 || j % interval == 0) {
-                    writePixel(i, j, color);
-                }
+                // _width/interval // _height/interval
+                writePixel(i, j, color);
+
+            }
+        }
+        for (int i = 0; i < nX; i++) {
+            for (int j = 0; j < nY; j += interval) {
+                // _width/interval // _height/interval
+                writePixel(i, j, color);
+
             }
         }
     }
-
 }
-

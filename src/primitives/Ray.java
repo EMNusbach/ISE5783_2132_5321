@@ -5,13 +5,13 @@ import geometries.Intersectable.GeoPoint;
 import java.util.List;
 
 /**
- *  * @Param DELTA - a const parameter for ray-head offset size for shading rays.
+ * * @Param DELTA - a const parameter for ray-head offset size for shading rays.
  * this class represent a ray by starting point and direction
  */
 public class Ray {
     private static final double DELTA = 0.1d;
-    private Point p0;
-    private Vector dir;
+    private final Point p0;
+    private final Vector dir;
 
 
     /**
@@ -26,6 +26,7 @@ public class Ray {
         this.dir = dir.normalize();
 
     }
+
     public Ray(Point p, Vector dir, Vector n) {
         this.dir = dir.normalize();
         double nv = n.dotProduct(this.dir);
@@ -102,8 +103,8 @@ public class Ray {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Ray)) return false;
-        Ray ray = (Ray) o;
-        return getP0().equals(ray.getP0()) && getDir().equals(ray.getDir());
+        Ray other = (Ray) o;
+        return this.p0.equals(other.p0) && dir.equals(other.dir);
     }
 
     /**
@@ -124,6 +125,8 @@ public class Ray {
      */
     public Point findClosestPoint(List<Point> points) {
         return points == null || points.isEmpty() ? null
-                : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+                : findClosestGeoPoint(points.stream()
+                .map(p -> new GeoPoint(null, p))
+                .toList()).point;
     }
 }

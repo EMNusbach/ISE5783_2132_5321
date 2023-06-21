@@ -9,20 +9,23 @@ package primitives;
  * @author Dan Zilberstein
  */
 public class Color {
-
     /**
      * Black color = (0,0,0)
      */
     public static final Color BLACK = new Color();
-    public static final Color BLUE = new Color(0, 64, 128);
-    public static final Color YELLOW = new Color(255, 255, 0);
+    public static final Color PURPLE = new Color(231, 159, 248);
+    public static final Color AZURE = new Color(87, 235, 218);
+    public static final Color BLUE = new Color(0, 0, 255);
     public static final Color RED = new Color(255, 0, 0);
-    ;
+    public static final Color GREEN = new Color(77, 250, 7);
+    public static final Color YELLOW = new Color(255, 255, 0);
+    public static final Color PINK = new Color(20, 20, 20);
     /**
      * The internal fields tx`o maintain RGB components as double numbers from 0 to
      * whatever...
      */
     private final Double3 rgb;
+
 
     /**
      * Default constructor - to generate Black Color (privately)
@@ -86,16 +89,16 @@ public class Color {
      * @param colors one or more other colors to add
      * @return new Color object which is a result of the operation
      */
-    public primitives.Color add(primitives.Color... colors) {
+    public Color add(Color... colors) {
         double rr = rgb.d1;
         double rg = rgb.d2;
         double rb = rgb.d3;
-        for (primitives.Color c : colors) {
+        for (Color c : colors) {
             rr += c.rgb.d1;
             rg += c.rgb.d2;
             rb += c.rgb.d3;
         }
-        return new primitives.Color(rr, rg, rb);
+        return new Color(rr, rg, rb);
     }
 
     /**
@@ -104,10 +107,10 @@ public class Color {
      * @param k scale factor per rgb
      * @return new Color object which is the result of the operation
      */
-    public primitives.Color scale(Double3 k) {
+    public Color scale(Double3 k) {
         if (k.d1 < 0.0 || k.d2 < 0.0 || k.d3 < 0.0)
             throw new IllegalArgumentException("Can't scale a color by a negative number");
-        return new primitives.Color(rgb.product(k));
+        return new Color(rgb.product(k));
     }
 
     /**
@@ -116,10 +119,10 @@ public class Color {
      * @param k scale factor
      * @return new Color object which is the result of the operation
      */
-    public primitives.Color scale(double k) {
+    public Color scale(double k) {
         if (k < 0.0)
             throw new IllegalArgumentException("Can't scale a color by a negative number");
-        return new primitives.Color(rgb.scale(k));
+        return new Color(rgb.scale(k));
     }
 
     /**
@@ -128,10 +131,10 @@ public class Color {
      * @param k reduction factor
      * @return new Color object which is the result of the operation
      */
-    public primitives.Color reduce(double k) {
+    public Color reduce(double k) {
         if (k < 1)
             throw new IllegalArgumentException("Can't scale a color by a by a number lower than 1");
-        return new primitives.Color(rgb.reduce(k));
+        return new Color(rgb.reduce(k));
     }
 
     /**
@@ -140,10 +143,32 @@ public class Color {
      * @param k reduction factor
      * @return new Color object which is the result of the operation
      */
-    public primitives.Color reduce(Double3 k) {
+    public Color reduce(Double3 k) {
         if (k.d1 < 1.0 || k.d2 < 1.0 || k.d3 < 1.0)
             throw new IllegalArgumentException("Can't scale a color by a by a number lower than 1");
-        return new primitives.Color(rgb.d1 / k.d1, rgb.d2 / k.d2, rgb.d3 / k.d3);
+        return new Color(rgb.d1 / k.d1, rgb.d2 / k.d2, rgb.d3 / k.d3);
     }
 
+    /**
+     * Checks if the color is almost equal
+     *
+     * @param color primitives
+     * @return
+     */
+    public boolean isAlmostEquals(primitives.Color color) {
+
+        return (Math.abs(this.rgb.d1 - color.rgb.d1) <= 2) &&
+                (Math.abs(this.rgb.d2 - color.rgb.d2) <= 2) &&
+                (Math.abs(this.rgb.d3 - color.rgb.d3) <= 2);
+    }
+
+    /**
+     * toString
+     *
+     * @return string
+     */
+    @Override
+    public String toString() {
+        return "rgb:" + rgb;
+    }
 }

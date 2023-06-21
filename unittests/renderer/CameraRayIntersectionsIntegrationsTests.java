@@ -10,12 +10,12 @@ import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CameraRayIntersectionsIntegrationsTests {
+class CameraRayIntersectionsIntegrationTest {
     /**
      * Integration tests of Camera Ray construction with Ray-Sphere intersections
      */
     @Test
-    public void cameraRaySpheresIntegration() {
+    public void cameraRaySphereIntegration() {
         Camera cam1 = new Camera(
                 Point.ZERO,
                 new Vector(0, 0, -1),
@@ -89,7 +89,7 @@ class CameraRayIntersectionsIntegrationsTests {
 
         for (int i = 0; i < nX; i++) {
             for (int j = 0; j < nY; j++) {
-                var ray = cam.constructRay(nX, nY, j, i); // create ray in the view plane
+                var ray = cam.constructRayThroughPixel(nX, nY, j, i); // create ray in the view plane
                 var intersections = geo.findIntersections(ray);
 
                 if (intersections != null) {

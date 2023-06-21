@@ -1,162 +1,134 @@
 package primitives;
 
 /**
- * This class represents the material properties and texture of a geometry object.
- * Multiple geometries can share the same material.
+ * this class gives factors of material and the texture of the geometry.
+ * geometries objects can have the same material.
+ *
+ * @author tehila and esther malka
  */
 public class Material {
-    public Double3 kD = Double3.ZERO;
-    public Double3 kS = Double3.ZERO;
-    public Double3 kT = Double3.ZERO;
-    public Double3 kR = Double3.ZERO;
-    public int nShininess = 0;
-
-    //region Getters
 
     /**
-     * Retrieves the shininess coefficient.
+     * diffusive
+     */
+    public Double3 kD = new Double3(0, 0, 0);
+    /**
+     * specular
+     */
+    public Double3 kS = new Double3(0, 0, 0);
+    /**
+     * Discount coefficient for transparency
+     */
+    public Double3 kT = new Double3(0, 0, 0);
+    /**
+     * Coefficient of attenuation for reflection
+     */
+    public Double3 kR = new Double3(0, 0, 0);
+    public int nShininess = 0;
+
+//region Getters
+    public double Glossy = 0;
+
+    /**
+     * getting of nShininess
      *
-     * @return The shininess coefficient.
+     * @return nShininess
      */
     public int getnShininess() {
         return nShininess;
     }
 
     /**
-     * Sets the shininess coefficient.
+     * getting of kD
      *
-     * @param nShininess The shininess coefficient to set.
-     * @return The updated Material object.
-     */
-    public Material setnshininess(int nShininess) {
-        this.nShininess = nShininess;
-        return this;
-    }
-
-    /**
-     * Retrieves the diffuse reflection coefficient.
-     *
-     * @return The diffuse reflection coefficient.
+     * @return kD
      */
     public Double3 getkD() {
         return kD;
     }
 
     //region Setters
-    // ** All setters implement the Builder Design Pattern ** //
-
-    /**
-     * Sets the diffuse reflection coefficient.
-     *
-     * @param kD The diffuse reflection coefficient to set.
-     * @return The updated Material object.
-     */
+    // ** all setters implements the Builder Design Pattern **//
     public Material setkD(Double3 kD) {
         this.kD = kD;
         return this;
     }
 
-    /**
-     * Sets the diffuse reflection coefficient.
-     *
-     * @param kD The diffuse reflection coefficient to set.
-     * @return The updated Material object.
-     */
     public Material setkD(Double kD) {
         this.kD = new Double3(kD);
         return this;
     }
+    //endregion
 
     /**
-     * Retrieves the specular reflection coefficient.
+     * getting of kS
      *
-     * @return The specular reflection coefficient.
+     * @return kS
      */
     public Double3 getkS() {
         return kS;
     }
 
-    /**
-     * Sets the specular reflection coefficient.
-     *
-     * @param kS The specular reflection coefficient to set.
-     * @return The updated Material object.
-     */
     public Material setkS(Double3 kS) {
         this.kS = kS;
         return this;
     }
 
-    /**
-     * Sets the specular reflection coefficient.
-     *
-     * @param kS The specular reflection coefficient to set.
-     * @return The updated Material object.
-     */
     public Material setkS(Double kS) {
         this.kS = new Double3(kS);
         return this;
     }
 
     /**
-     * Sets the attenuation coefficient of transparency.
+     * getting of kD
      *
-     * @param kT The attenuation coefficient of transparency to set.
-     * @return The updated Material object.
+     * @return kD
      */
+    public Double3 getkT() {
+        return kT;
+    }
+
     public Material setkT(Double3 kT) {
         this.kT = kT;
         return this;
     }
 
-    /**
-     * Sets the attenuation coefficient of transparency.
-     *
-     * @param kT The attenuation coefficient of transparency to set.
-     * @return The updated Material object.
-     */
     public Material setkT(Double kT) {
         this.kT = new Double3(kT);
         return this;
     }
 
     /**
-     * Retrieves the attenuation coefficient of transparency.
+     * getting of kD
      *
-     * @return The attenuation coefficient of transparency.
+     * @return kD
      */
-    public Double3 getkT() {
-        return kT;
+    public Double3 getkR() {
+        return kR;
     }
 
-    /**
-     * Sets the attenuation coefficient of reflection.
-     *
-     * @param kR The attenuation coefficient of reflection to set.
-     * @return The updated Material object.
-     */
     public Material setkR(Double3 kR) {
         this.kR = kR;
         return this;
     }
 
-/**
- * Sets the attenuation coefficient of reflection.
- *
- * @param kR The attenuation coefficient of reflection
- */
     public Material setkR(Double kR) {
         this.kR = new Double3(kR);
         return this;
     }
 
-    /**
-     * Retrieves the attenuation coefficient of reflection.
-     *
-     * @return The attenuation coefficient of reflection.
-     */
-    public Double3 getkR() {
-        return kR;
+    public Material setnshininess(int nShininess) {
+        this.nShininess = nShininess;
+        return this;
+    }
+
+    public double getGlossy() {
+        return Glossy;
+    }
+
+    public Material setGlossy(double Glossy) {
+        this.Glossy = Glossy;
+        return this;
     }
 
     //endregion
