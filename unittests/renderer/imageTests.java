@@ -502,18 +502,14 @@ public class imageTests {
         scene.lights.add(new PointLight(new Color(400, 400, 1020), new Point(220, -210, -400))
                 .setkL(0.1).setkQ(0.5).setkC(0.7));
 
-        ImageWriter imageWriter = new ImageWriter("my picture ", 1000, 1000);
-
+        ImageWriter imageWriter = new ImageWriter("my picture", 300, 300);
         camera.setImageWriter(imageWriter)
-                .setantiAliasing(0)
+                .setantiAliasing(150)
                 .setadaptive(true)
                 .setthreadsCount(3)
-                .setRayTracer(new RayTracerBasic(scene)) //
+                .setRayTracer(new RayTracerBasic(scene))
                 .renderImage()
-                //.moveCamera(new Point(0, 1000, 0),new Point(0, 0, 0))//
                 .writeToImage();
-        //render.renderImage();
-        imageWriter.writeToImage();
 
 
     }

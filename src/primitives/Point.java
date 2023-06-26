@@ -7,7 +7,7 @@ public class Point {
      * zero constants of point (0, 0, 0)
      */
     public final static Point ZERO = new Point(0d, 0d, 0d);
-    protected Double3 xyz;
+    public Double3 xyz;
 
     /**
      * constructor
