@@ -17,15 +17,15 @@ public class Double3 {
     /**
      * First number
      */
-    final double d1;
+    public final double d1;
     /**
      * Second number
      */
-    final double d2;
+    public final double d2;
     /**
      * Third number
      */
-    final double d3;
+    public final double d3;
 
     /**
      * Constructor to initialize Double3 based object with its three number values
