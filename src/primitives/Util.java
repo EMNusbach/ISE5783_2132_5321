@@ -15,15 +15,19 @@ public abstract class Util {
     private Util() {
     }
 
-    // double store format (bit level):
-    //    seee eeee eeee (1.)mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-    // 1 bit sign, 11 bits exponent, 53 bits (52 stored) normalized mantissa
-    // the number is m+2^e where 1<=m<2
-    // NB: exponent is stored "normalized" (i.e. always positive by adding 1023)
+    /**
+     * Returns the exponent of the given double number in the double-precision floating-point format.
+     *
+     * The double-precision format consists of 1 bit for the sign, 11 bits for the exponent, and 53 bits (52 stored) for the normalized mantissa.
+     * The exponent is stored in a "normalized" form, meaning it is always positive by adding 1023.
+     *
+     * @param num The double number for which to retrieve the exponent.
+     * @return The exponent of the given double number.
+     */
     private static int getExp(double num) {
-        // 1. doubleToRawLongBits: "convert" the stored number to set of bits
-        // 2. Shift all 52 bits to the right (removing mantissa)
-        // 3. Zero the sign of number bit by mask 0x7FF
+        // 1. doubleToRawLongBits: "convert" the stored number to a set of bits
+        // 2. Shift all 52 bits to the right (removing the mantissa)
+        // 3. Zero the sign bit of the number by applying the mask 0x7FF
         // 4. "De-normalize" the exponent by subtracting 1023
         return (int) ((Double.doubleToRawLongBits(num) >> 52) & 0x7FFL) - 1023;
     }

@@ -66,7 +66,7 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * get the the direction of the light to the point where its strikes
+     * get the direction of the light to the point where its strikes
      *
      * @param p The point where the light strikes
      * @return the direction of the light to the point
