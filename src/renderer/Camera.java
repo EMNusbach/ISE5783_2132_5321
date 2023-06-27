@@ -246,7 +246,8 @@ public class Camera {
             while (threadsCount-- > 0) {
                 new Thread(() -> {
                     for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
-                        imageWriter.writePixel(pixel.col, pixel.row, AdaptiveSuperSampling(imageWriter.getNx(), imageWriter.getNy(), pixel.col, pixel.row, antiAliasing));
+                        imageWriter.writePixel(pixel.col, pixel.row, AdaptiveSuperSampling(imageWriter.getNx(),
+                                imageWriter.getNy(), pixel.col, pixel.row, antiAliasing));
                 }).start();
             }
             Pixel.waitToFinish();
@@ -353,32 +354,36 @@ public class Camera {
     }
 
     /**
-     * Creates a beam of rays into a square grid
-     * @param nX Pixel length
-     * @param nY Pixel width
-     * @param j Position the pixel on the y-axis inside the grid
-     * @param i Position the pixel on the x-axis inside the grid
-     * @param numOfRays The root of the number of beams sent per pixel
-     * @return List of beams of rays
+     * Creates a beam of rays into a square grid.
+     * The method constructs multiple rays for a given pixel in the grid, allowing for sub-pixel sampling.
+     *
+     * @param nX         Pixel length
+     * @param nY         Pixel width
+     * @param j          Position the pixel on the y-axis inside the grid
+     * @param i          Position the pixel on the x-axis inside the grid
+     * @param numOfRays  The root of the number of beams sent per pixel
+     * @return           List of beams of rays
+     * @throws IllegalArgumentException if numOfRays is 0
      */
     public List<Ray> constructRays(int nX, int nY, int j, int i, int numOfRays) {
-        if (numOfRays== 0) {
-            throw new IllegalArgumentException("num Of Rays can not be 0");
+        if (numOfRays == 0) {
+            throw new IllegalArgumentException("num Of Rays cannot be 0");
         }
+
         if (numOfRays == 1) {
             return List.of(constructRayThroughPixel(nX, nY, j, i));
-        }
-        else {
+        } else {
             List<Ray> rays = new LinkedList<>();
             Point pIJ = getCenterOfPixel(nX, nY, j, i);
 
-            double rY = alignZero(height / nY);
-            // the ratio Rx = w/Nx, the width of the pixel
-            double rX = alignZero(width / nX);
+            double rY = alignZero(height / nY); // The ratio Ry = h/Ny, the height of the pixel
+            double rX = alignZero(width / nX);  // The ratio Rx = w/Nx, the width of the pixel
 
-            double pY = alignZero(rY / numOfRays);
-            double pX = alignZero(rX / numOfRays);
+            double pY = alignZero(rY / numOfRays); // Calculate the step size for the vertical direction
+            double pX = alignZero(rX / numOfRays); // Calculate the step size for the horizontal direction
             Point PijTemP = pIJ;
+
+            // Generate rays for each sub-pixel within the pixel
             for (int p = 1; p < numOfRays; p++) {
                 for (int m = 1; m < numOfRays; m++) {
                     PijTemP = pIJ.add(vRight.scale(pX * m)).add(vUp.scale(pY * p));
@@ -386,11 +391,10 @@ public class Camera {
                 }
             }
 
-
             return rays;
         }
-
     }
+
 
     /**
      * Invites the coloring function

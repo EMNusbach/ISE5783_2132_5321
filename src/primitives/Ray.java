@@ -5,7 +5,9 @@ import geometries.Intersectable.GeoPoint;
 import java.util.List;
 
 /**
- * * @Param DELTA - a const parameter for ray-head offset size for shading rays.
+ * @Param DELTA - a const parameter for ray-head offset size for shading rays.
+ * @param p0-Vector's starting point
+ * @param dir-The     direction of the vector
  * this class represent a ray by starting point and direction
  */
 public class Ray {
@@ -27,6 +29,16 @@ public class Ray {
 
     }
 
+    /**
+     * This class represents a ray in 3D space, defined by its starting point and direction.
+     *
+     * The class provides a constructor to create a ray with the given starting point, direction, and surface normal.
+     * The direction vector is normalized, and a small adjustment is made to the starting point to avoid self-intersection with the surface.
+     *
+     * @param p  The starting point of the ray.
+     * @param dir  The direction vector of the ray.
+     * @param n  The surface normal vector at the starting point of the ray.
+     */
     public Ray(Point p, Vector dir, Vector n) {
         this.dir = dir.normalize();
         double nv = n.dotProduct(this.dir);
@@ -38,6 +50,7 @@ public class Ray {
         }
         this.p0 = p.add(delta);
     }
+
 
     /**
      * geter of point

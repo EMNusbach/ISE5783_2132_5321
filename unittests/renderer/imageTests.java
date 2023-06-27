@@ -484,7 +484,7 @@ public class imageTests {
 
 
                 new Triangle(new Point(500, 200, -100), new Point(-500, 200, -100), new Point(1800, 200, -700))
-                        .setEmission(new Color(BLACK))//
+                       .setEmission(new Color(BLACK))//
                         .setMaterial(new Material().setkD(0.8).setkS(1.0).setnshininess(10000).setkR(1d).setGlossy(0.5)),
 
                 new Triangle(new Point(-500, 200, -100), new Point(1800, 200, -700), new Point(-1800, 200, -700))
@@ -500,11 +500,11 @@ public class imageTests {
         scene.lights.add(new PointLight(new Color(400, 400, 1020), new Point(-60, -210, -400))
                 .setkL(0.1).setkQ(0.5).setkC(0.7));
         scene.lights.add(new PointLight(new Color(400, 400, 1020), new Point(220, -210, -400))
-                .setkL(0.1).setkQ(0.5).setkC(0.7));
+               .setkL(0.1).setkQ(0.5).setkC(0.7));
 
         ImageWriter imageWriter = new ImageWriter("my picture", 300, 300);
         camera.setImageWriter(imageWriter)
-                .setantiAliasing(150)
+                .setantiAliasing(0)
                 .setadaptive(true)
                 .setthreadsCount(3)
                 .setRayTracer(new RayTracerBasic(scene))
